@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context="cn.com.virtualbitcoin.MainActivity">
-    <me.zhanghai.android.materialratingbar.MaterialRatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialRatingBar.RatingBar"/>
-    <me.zhanghai.android.materialratingbar.MaterialRatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:mrb_progressTint="#f4f4"
-        app:mrb_secondaryProgressTint="#f5f"
-        style="@style/Widget.MaterialRatingBar.RatingBar"/>
-
-</LinearLayout>
+   <cn.com.virtualbitcoin.adapter.NoTouchViewPager
+       android:id="@+id/viewPager"
+       android:layout_marginBottom="50dp"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+   </cn.com.virtualbitcoin.adapter.NoTouchViewPager>
+    <me.majiajie.pagerbottomtabstrip.PageBottomTabLayout
+        android:id="@+id/tab"
+        app:elevation="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/tab_background"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

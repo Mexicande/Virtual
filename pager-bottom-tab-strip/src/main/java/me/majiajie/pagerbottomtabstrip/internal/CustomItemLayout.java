@@ -1,6 +1,7 @@
 package me.majiajie.pagerbottomtabstrip.internal;
 
 
+import android.animation.LayoutTransition;
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -11,13 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.majiajie.pagerbottomtabstrip.ItemController;
-import me.majiajie.pagerbottomtabstrip.R;
 import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 
+/**
+ * 存放自定义项的布局
+ */
 public class CustomItemLayout extends ViewGroup implements ItemController {
-
-    private final int BOTTOM_NAVIGATION_ITEM_HEIGHT;
 
     private List<BaseTabItem> mItems;
     private List<OnTabItemSelectedListener> mListeners = new ArrayList<>();
@@ -34,26 +35,55 @@ public class CustomItemLayout extends ViewGroup implements ItemController {
 
     public CustomItemLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setLayoutTransition(new LayoutTransition());
+    }
 
-        BOTTOM_NAVIGATION_ITEM_HEIGHT = getResources().getDimensionPixelSize(R.dimen.material_bottom_navigation_height);
+    public void initialize(List<BaseTabItem> items) {
+        mItems = items;
+
+        //添加按钮到布局，并注册点击事件
+        int n = mItems.size();
+        for (int i = 0; i < n; i++){
+            BaseTabItem v = mItems.get(i);
+            v.setChecked(false);
+            this.addView(v);
+
+            final int finali = i;
+            v.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setSelect(finali);
+                }
+            });
+        }
+
+        //默认选中第一项
+        mSelected = 0;
+        mItems.get(0).setChecked(true);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
         final int n = getChildCount();
-        int childWidth = getMeasuredWidth() / n;
+        int visableChildCount = 0;
+        for (int i = 0; i < n; i++) {
+            if (getChildAt(i).getVisibility() != GONE){
+                visableChildCount++;
+            }
+        }
 
-        final int heightSpec = MeasureSpec.makeMeasureSpec(BOTTOM_NAVIGATION_ITEM_HEIGHT, MeasureSpec.EXACTLY);
-        final int widthSpec = MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY);
+        if (visableChildCount == 0){return;}
+
+        final int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec) / visableChildCount, MeasureSpec.EXACTLY);
+        final int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(Math.max(0, MeasureSpec.getSize(heightMeasureSpec) - getPaddingBottom() - getPaddingTop()), MeasureSpec.EXACTLY);
 
         for (int i = 0; i < n; i++) {
             final View child = getChildAt(i);
-            if (child.getVisibility() == GONE) {
+            if (child.getVisibility() == GONE){
                 continue;
             }
-            child.measure(widthSpec, heightSpec);
-            child.getLayoutParams().width = child.getMeasuredWidth();
+            child.measure(childWidthMeasureSpec,childHeightMeasureSpec);
         }
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -83,37 +113,13 @@ public class CustomItemLayout extends ViewGroup implements ItemController {
         }
     }
 
-
-    public void initialize(List<BaseTabItem> items) {
-        mItems = items;
-
-        //添加按钮到布局，并注册点击事件
-        int n = mItems.size();
-        for (int i = 0; i < n; i++){
-            BaseTabItem v = mItems.get(i);
-            v.setChecked(false);
-            this.addView(v);
-
-            final int finali = i;
-            v.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setSelect(finali);
-                }
-            });
-        }
-
-        //默认选中第一项
-        mSelected = 0;
-        mItems.get(0).setChecked(true);
-    }
-
     @Override
     public void setSelect(int index) {
 
         //重复选择
         if(index == mSelected){
             for(OnTabItemSelectedListener listener:mListeners) {
+                mItems.get(mSelected).onRepeat();
                 listener.onRepeat(mSelected);
             }
             return;

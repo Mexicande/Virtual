@@ -3,4 +3,21 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <!--home-->
+    <string name="get_sweets">领取糖果</string>
+    <string name="blockchain_rate">区块链评级</string>
+    <string name="new_price">当前价格</string>
+    <string name="sweets">糖果</string>
+    <string name="rate">评级</string>
+    <string name="nick">名称</string>
+    <string name="get_people">领取人数</string>
+    <string name="click">点击领取</string>
+
+
+   <!-- error-->
+    <string name="network_error">请检查网络</string>
+    <string name="data_error">数据异常</string>
+    <string name="net_error">网络请求失败</string>
+
 </resources>

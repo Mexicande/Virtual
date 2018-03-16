@@ -5,11 +5,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.drawable.RippleDrawable;
+import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -22,12 +24,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import me.majiajie.pagerbottomtabstrip.MaterialMode;
 import me.majiajie.pagerbottomtabstrip.ItemController;
+import me.majiajie.pagerbottomtabstrip.MaterialMode;
 import me.majiajie.pagerbottomtabstrip.R;
 import me.majiajie.pagerbottomtabstrip.item.MaterialItemView;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 
+/**
+ * 存放 Material Design 风格按钮的水平布局
+ */
 public class MaterialItemLayout extends ViewGroup implements ItemController {
 
     private final int DEFAULT_SELECTED = 0;
@@ -36,8 +41,6 @@ public class MaterialItemLayout extends ViewGroup implements ItemController {
     private final int MATERIAL_BOTTOM_NAVIGATION_ITEM_MAX_WIDTH;
     private final int MATERIAL_BOTTOM_NAVIGATION_ITEM_MIN_WIDTH;
     private final int MATERIAL_BOTTOM_NAVIGATION_ITEM_HEIGHT;
-
-    private final DelayedAnimationHelper mDelayedAnimationHelper = new DelayedAnimationHelper();
 
     private List<MaterialItemView> mItems;
 
@@ -49,7 +52,7 @@ public class MaterialItemLayout extends ViewGroup implements ItemController {
     private int mSelected = -1;
     private int mOldSelected = -1;
 
-    private boolean mShiftingMode;
+    private boolean mHideTitle;
 
     //切换背景颜色时使用
     private final int ANIM_TIME = 300;
@@ -92,7 +95,7 @@ public class MaterialItemLayout extends ViewGroup implements ItemController {
      * @param items 按钮集合
      * @param mode  {@link MaterialMode}
      */
-    public void initialize(List<MaterialItemView> items,int mode)
+    public void initialize(List<MaterialItemView> items, List<Integer> checkedColors, int mode)
     {
         mItems = items;
 
@@ -101,31 +104,31 @@ public class MaterialItemLayout extends ViewGroup implements ItemController {
             //初始化一些成员变量
             mChangeBackgroundMode = true;
             mOvals = new ArrayList<>();
-            mColors = new ArrayList<>();
+            mColors = checkedColors;
             mInterpolator = new AccelerateDecelerateInterpolator();
             mTempRectF = new RectF();
             mPaint  = new Paint();
 
-            //获取各项的选中颜色，并替换成白色
-            for(MaterialItemView v:mItems) {
-                mColors.add(v.getCheckedColor());
-                v.setCheckedColor(Color.WHITE);
-            }
-
             //设置默认的背景
             setBackgroundColor(mColors.get(DEFAULT_SELECTED));
+
         } else {
             //设置按钮点击效果
-            for(MaterialItemView v:mItems) {
-                v.setBackgroundResource(R.drawable.material_item_background);
+            for(int i = 0;i < mItems.size();i++) {
+                MaterialItemView v = mItems.get(i);
+                if (Build.VERSION.SDK_INT >= 21){
+                    v.setBackground(new RippleDrawable(new ColorStateList(new int[][]{{}},new int[]{0xFFFFFF & checkedColors.get(i) | 0x56000000}),null,null));
+                } else {
+                    v.setBackgroundResource(R.drawable.material_item_background);
+                }
             }
         }
 
         //判断是否隐藏文字
         if((mode & MaterialMode.HIDE_TEXT) > 0) {
-            mShiftingMode = true;
+            mHideTitle = true;
             for(MaterialItemView v:mItems) {
-                v.setShiftingMode(true);
+                v.setHideTitle(true);
             }
         }
 
@@ -140,7 +143,6 @@ public class MaterialItemLayout extends ViewGroup implements ItemController {
             v.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     setSelect(finali,mLastUpX,mLastUpY);
                 }
             });
@@ -164,30 +166,26 @@ public class MaterialItemLayout extends ViewGroup implements ItemController {
 
         final int heightSpec = MeasureSpec.makeMeasureSpec(MATERIAL_BOTTOM_NAVIGATION_ITEM_HEIGHT, MeasureSpec.EXACTLY);
 
-        if (mShiftingMode) {
+        if (mHideTitle) {
             final int inactiveCount = count - 1;
             final int activeMaxAvailable = width - inactiveCount * MATERIAL_BOTTOM_NAVIGATION_ITEM_MIN_WIDTH;
             final int activeWidth = Math.min(activeMaxAvailable, MATERIAL_BOTTOM_NAVIGATION_ACTIVE_ITEM_MAX_WIDTH);
             final int inactiveMaxAvailable = (width - activeWidth) / inactiveCount;
             final int inactiveWidth = Math.min(inactiveMaxAvailable, MATERIAL_BOTTOM_NAVIGATION_ITEM_MAX_WIDTH);
-            int extra = width - activeWidth - inactiveWidth * inactiveCount;
             for (int i = 0; i < count; i++) {
-                mTempChildWidths[i] = (i == mSelected) ? activeWidth : inactiveWidth;
-                if (extra > 0) {
-                    mTempChildWidths[i]++;
-                    extra--;
+                if (i == mSelected){
+                    mTempChildWidths[i] = (int) ((activeWidth - inactiveWidth) * mItems.get(mSelected).getAnimValue() + inactiveWidth);
+                } else if(i == mOldSelected){
+                    mTempChildWidths[i] = (int) (activeWidth - (activeWidth - inactiveWidth) * mItems.get(mSelected).getAnimValue());
+                } else {
+                    mTempChildWidths[i] = inactiveWidth;
                 }
             }
         } else {
             final int maxAvailable = width / (count == 0 ? 1 : count);
             final int childWidth = Math.min(maxAvailable, MATERIAL_BOTTOM_NAVIGATION_ACTIVE_ITEM_MAX_WIDTH);
-            int extra = width - childWidth * count;
             for (int i = 0; i < count; i++) {
                 mTempChildWidths[i] = childWidth;
-                if (extra > 0) {
-                    mTempChildWidths[i]++;
-                    extra--;
-                }
             }
         }
 
@@ -240,23 +238,19 @@ public class MaterialItemLayout extends ViewGroup implements ItemController {
     {
         super.onDraw(canvas);
 
-        if(mChangeBackgroundMode)
-        {
+        if(mChangeBackgroundMode) {
             int width = getWidth();
             int height = getHeight();
 
             Iterator<Oval> iterator = mOvals.iterator();
-            while(iterator.hasNext())
-            {
+            while(iterator.hasNext()) {
                 Oval oval = iterator.next();
                 mPaint.setColor(oval.color);
-                if(oval.r < oval.maxR)
-                {
+                if(oval.r < oval.maxR) {
                     mTempRectF.set(oval.getLeft(),oval.getTop(),oval.getRight(),oval.getBottom());
                     canvas.drawOval(mTempRectF, mPaint);
                 }
-                else
-                {
+                else {
                     this.setBackgroundColor(oval.color);
                     canvas.drawRect(0,0,width,height,mPaint);
                     iterator.remove();
@@ -269,8 +263,7 @@ public class MaterialItemLayout extends ViewGroup implements ItemController {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
 
-        if(ev.getAction() == MotionEvent.ACTION_UP)
-        {
+        if(ev.getAction() == MotionEvent.ACTION_UP) {
             mLastUpX = ev.getX();
             mLastUpY = ev.getY();
         }
@@ -331,8 +324,6 @@ public class MaterialItemLayout extends ViewGroup implements ItemController {
         mOldSelected = mSelected;
         mSelected = index;
 
-        mDelayedAnimationHelper.beginDelayedTransition(this);
-
         //切换背景颜色
         if(mChangeBackgroundMode)
         {
@@ -371,8 +362,7 @@ public class MaterialItemLayout extends ViewGroup implements ItemController {
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float n = (float) valueAnimator.getAnimatedValue();
-                oval.r = n;
+                oval.r = (float) valueAnimator.getAnimatedValue();
             }
         });
         valueAnimator.addListener(new AnimatorListenerAdapter() {

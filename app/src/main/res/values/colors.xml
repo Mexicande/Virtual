@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#1E82D2</color>
+    <color name="colorPrimaryDark">#1867a5</color>
     <color name="colorAccent">#FF4081</color>
 
 
@@ -9,4 +9,9 @@
     <color name="white">#FFFFFF</color>
     <color name="common_pressed">#20000000</color>  <!--白色背景按下去的颜色-->
     <color name="line">#e8e8e8</color>
+    <color name="bg">#f8f8f8</color>
+
+    <color name="black_color">#000000</color>
+    <color name="black_666">#000000</color>
+
 </resources>
