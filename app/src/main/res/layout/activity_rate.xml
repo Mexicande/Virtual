@@ -1,10 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="cn.com.virtualbitcoin.fragment.SweetsFragment">
-
+    android:background="@color/bg"
+    tools:context="cn.com.virtualbitcoin.activity.RateActivity">
+    <include layout="@layout/back_tooble_item"/>
     <RelativeLayout
         android:layout_marginTop="8dp"
         android:layout_marginBottom="6dp"
@@ -18,32 +21,19 @@
             android:textColor="@color/black_333"
             android:text="@string/nick"/>
         <TextView
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="70dp"
             android:id="@+id/Rtext"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@color/black_333"
-            android:text="@string/click"/>
-        <TextView
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/get_people"
-            android:textSize="14sp"
-            android:textColor="@color/black_333"
-            />
+            android:text="评分"/>
     </RelativeLayout>
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rate_Recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:descendantFocusability="blocksDescendants">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
-    </RelativeLayout>
+        android:layout_height="wrap_content">
 
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

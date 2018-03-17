@@ -6,6 +6,7 @@
     android:layout_marginTop="7dp"
     android:layout_height="100dp">
     <RelativeLayout
+        android:id="@+id/way_sweet"
         android:background="@color/white"
         android:layout_weight="1"
         android:layout_width="0dp"
@@ -31,6 +32,7 @@
         </LinearLayout>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/way_rate"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:background="@color/white"
@@ -60,6 +62,7 @@
         </LinearLayout>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/way_price"
         android:background="@color/white"
         android:layout_weight="1"
         android:layout_width="0dp"

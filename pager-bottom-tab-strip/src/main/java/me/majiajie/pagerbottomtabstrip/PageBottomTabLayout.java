@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 /**
+ * @author apple
  * @deprecated 请使用新的类 {@link PageNavigationView}
  */
 public class PageBottomTabLayout extends PageNavigationView {

@@ -30,11 +30,16 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import cn.com.virtualbitcoin.R;
+import cn.com.virtualbitcoin.activity.GetSweetActivity;
+import cn.com.virtualbitcoin.activity.RateActivity;
 import cn.com.virtualbitcoin.adapter.MyViewPagerAdapter;
 import cn.com.virtualbitcoin.adapter.NoTouchViewPager;
+import cn.com.virtualbitcoin.utils.ActivityUtils;
+import cn.com.virtualbitcoin.utils.AppUtils;
 import cn.com.virtualbitcoin.utils.Utils;
 
 /**
@@ -102,8 +107,8 @@ public class MainFragment extends Fragment {
 
                 SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
                 simplePagerTitleView.setText(mDataList.get(i));
-                simplePagerTitleView.setNormalColor(R.color.black_666);
-                simplePagerTitleView.setSelectedColor(R.color.colorPrimary);
+                simplePagerTitleView.setNormalColor(getResources().getColor(R.color.black_333));
+                simplePagerTitleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
                 simplePagerTitleView.setTextSize(16);
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -118,9 +123,9 @@ public class MainFragment extends Fragment {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setColors(R.color.colorPrimary);
-                indicator.setLineWidth(UIUtil.dip2px(context, 100));
+                indicator.setMode(LinePagerIndicator.MODE_MATCH_EDGE);
+                indicator.setLineHeight(3);
+                indicator.setColors(getResources().getColor(R.color.colorPrimary));
                 return indicator;
             }
         });
@@ -146,5 +151,21 @@ public class MainFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @OnClick({R.id.way_sweet, R.id.way_rate, R.id.way_price})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.way_sweet:
+                ActivityUtils.startActivity(GetSweetActivity.class);
+                break;
+            case R.id.way_rate:
+                ActivityUtils.startActivity(RateActivity.class);
+                break;
+            case R.id.way_price:
+                break;
+            default:
+                break;
+        }
     }
 }

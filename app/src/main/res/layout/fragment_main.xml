@@ -1,24 +1,28 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@color/bg"
+    android:fillViewport="true"
     tools:context="cn.com.virtualbitcoin.fragment.MainFragment">
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
     <include layout="@layout/toolbar_item"/>
-  <cn.bingoogolapple.bgabanner.BGABanner
-      android:id="@+id/banner_fresco_demo_content"
-      android:layout_width="wrap_content"
-      android:layout_height="160dp"
-      style="@style/BannerDefaultStyle"
-      app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
-      app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
-      app:banner_pointAutoPlayAble="true"
-      app:banner_pointContainerBackground="@android:color/transparent"
-      app:banner_transitionEffect="defaultEffect"
-      >
-  </cn.bingoogolapple.bgabanner.BGABanner>
+    <cn.bingoogolapple.bgabanner.BGABanner
+        android:id="@+id/banner_fresco_demo_content"
+        android:layout_width="wrap_content"
+        android:layout_height="160dp"
+        style="@style/BannerDefaultStyle"
+        app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
+        app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+        app:banner_pointAutoPlayAble="true"
+        app:banner_pointContainerBackground="@android:color/transparent"
+        app:banner_transitionEffect="defaultEffect"
+        >
+    </cn.bingoogolapple.bgabanner.BGABanner>
     <include layout="@layout/head_layout"/>
     <net.lucode.hackware.magicindicator.MagicIndicator
         android:id="@+id/magic_indicator"
@@ -27,8 +31,9 @@
         android:layout_width="match_parent"
         android:layout_height="51dp"
         android:layout_gravity="center_horizontal" />
-    <cn.com.virtualbitcoin.adapter.NoTouchViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</LinearLayout>
+      <cn.com.virtualbitcoin.adapter.NoTouchViewPager
+          android:id="@+id/view_pager"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+  </LinearLayout>
+</ScrollView>

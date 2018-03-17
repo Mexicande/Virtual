@@ -12,6 +12,11 @@
     <color name="bg">#f8f8f8</color>
 
     <color name="black_color">#000000</color>
-    <color name="black_666">#000000</color>
+    <color name="black_333">#333333</color>
+    <color name="black_666">#666666</color>
+    <color name="white_ef">#EFEFEF</color>
 
+    <color name="red_666">#FF6666</color>
+    <color name="yellow_2D">#FFDB2D</color>
+    <color name="yellow_cf">#f9f2cf</color>
 </resources>

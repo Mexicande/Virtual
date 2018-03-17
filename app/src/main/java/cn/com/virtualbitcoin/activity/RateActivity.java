@@ -1,14 +1,11 @@
-package cn.com.virtualbitcoin.fragment;
-
+package cn.com.virtualbitcoin.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -17,46 +14,44 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import butterknife.OnClick;
 import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.activity.child.RateChildActivity;
 import cn.com.virtualbitcoin.adapter.RateAdapter;
+import cn.com.virtualbitcoin.base.BaseActivity;
 import cn.com.virtualbitcoin.bean.RateBean;
-import cn.com.virtualbitcoin.bean.SweetList;
 import cn.com.virtualbitcoin.utils.ActivityUtils;
 import cn.com.virtualbitcoin.utils.AppUtils;
+import cn.com.virtualbitcoin.utils.StatusBarUtil;
 import cn.com.virtualbitcoin.utils.ToastUtils;
 import cn.com.virtualbitcoin.utils.Utils;
 import cn.com.virtualbitcoin.view.supertextview.SuperButton;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class RateFragment extends Fragment {
+public class RateActivity extends BaseActivity {
 
-
-
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.Rtext)
+    TextView Rtext;
     @BindView(R.id.rate_Recycler)
     RecyclerView rateRecycler;
-    Unbinder unbinder;
     private RateAdapter rateAdapter;
     ArrayList<RateBean> rateBeans=new ArrayList<>();
 
-    public RateFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_rate, container, false);
-        unbinder = ButterKnife.bind(this, view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_rate);
+        ButterKnife.bind(this);
         initDate();
         initView();
         setListener();
-        return view;
+    }
+
+    public void goBack(View v) {
+        finish();
     }
 
     private void setListener() {
@@ -73,7 +68,6 @@ public class RateFragment extends Fragment {
                 }
             }
         });
-
         rateAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -89,25 +83,44 @@ public class RateFragment extends Fragment {
         rateBean.setEn_name("GEC");
         rateBean.setCollection(1);
         rateBean.setRate_num("4.5");
+        RateBean rateBean2=new RateBean();
+        rateBean2.setCn_name("比特币");
+        rateBean2.setEn_name("GEC");
+        rateBean2.setCollection(0);
+        rateBean2.setRate_num("4.5");
         rateBeans.add(rateBean);
         rateBeans.add(rateBean);
         rateBeans.add(rateBean);
         rateBeans.add(rateBean);
         rateBeans.add(rateBean);
+        rateBeans.add(rateBean2);
 
 
     }
     private void initView() {
         rateAdapter=new RateAdapter(rateBeans);
-        rateRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rateRecycler.setLayoutManager(new LinearLayoutManager(this));
         rateRecycler.setAdapter(rateAdapter);
         rateRecycler.addItemDecoration(new DividerItemDecoration(Utils.getApp(), DividerItemDecoration.VERTICAL));
 
     }
+    @OnClick({R.id.iv_back})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    protected void setToolbarTitle() {
+        setTitle(tvTitle,R.string.block_rate);
     }
+    /*   @Override
+    protected void setStatusBar() {
+        StatusBarUtil.setTranslucentForImageViewInFragment(this, null);
+    }*/
 }

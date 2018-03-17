@@ -71,9 +71,9 @@ public class MainActivity extends BaseActivity {
         return onlyIconItemView;
     }
 
-    @Override
+  /*  @Override
     protected void setStatusBar() {
         StatusBarUtil.setTranslucentForImageViewInFragment(this, null);
-    }
+    }*/
 
 }

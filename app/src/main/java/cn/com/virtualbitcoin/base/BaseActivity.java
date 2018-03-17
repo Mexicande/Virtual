@@ -1,5 +1,6 @@
 package cn.com.virtualbitcoin.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -8,10 +9,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
 
 import cn.com.virtualbitcoin.R;
+import cn.com.virtualbitcoin.utils.AppUtils;
 import cn.com.virtualbitcoin.utils.StatusBarUtil;
 import cn.com.virtualbitcoin.utils.ToastUtils;
 
@@ -24,10 +27,21 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStatusBar();
+        setToolbarTitle();
 
     }
-    protected void setStatusBar() {
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary));
+    protected  void setToolbarTitle() {
+        setTitle(null ,0);
+    }
+
+    protected void setTitle(TextView tv, int s) {
+        if(tv!=null){
+            tv.setText(s);
+        }
+    }
+
+    private void setStatusBar() {
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimaryDark));
     }
     @Override
     public void onResume() {
