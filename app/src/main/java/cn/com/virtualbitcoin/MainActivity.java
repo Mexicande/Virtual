@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.com.virtualbitcoin.adapter.MyViewPagerAdapter;
 import cn.com.virtualbitcoin.adapter.NoTouchViewPager;
@@ -17,27 +17,26 @@ import cn.com.virtualbitcoin.fragment.CenterFragment;
 import cn.com.virtualbitcoin.fragment.MainFragment;
 import cn.com.virtualbitcoin.fragment.TerraceFragment;
 import cn.com.virtualbitcoin.utils.StatusBarUtil;
+import cn.com.virtualbitcoin.view.NormalItemView;
 import me.majiajie.pagerbottomtabstrip.NavigationController;
-import me.majiajie.pagerbottomtabstrip.PageBottomTabLayout;
+import me.majiajie.pagerbottomtabstrip.PageNavigationView;
 import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
-import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
 
 public class MainActivity extends BaseActivity {
 
-    @BindView(R.id.tab)
-    PageBottomTabLayout tab;
-    public static NavigationController navigationController;
-    @BindView(R.id.viewPager)
+    @Bind(R.id.viewPager)
     NoTouchViewPager viewPager;
-    private FragmentManager mFragmentManager;
-    private Fragment mCurrentFragment;
-
+    @Bind(R.id.tab)
+    PageNavigationView tab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
         initTab();
+    }
+
+    @Override
+    public int getLayoutResource() {
+        return R.layout.activity_main;
     }
 
     private void initTab() {
@@ -55,9 +54,7 @@ public class MainActivity extends BaseActivity {
         viewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(), list));
         //自动适配ViewPager页面切换
         navigationController.setupWithViewPager(viewPager);
-        viewPager.setCurrentItem(1);
-
-
+       viewPager.setCurrentItem(1);
 
 
     }
@@ -71,9 +68,9 @@ public class MainActivity extends BaseActivity {
         return onlyIconItemView;
     }
 
-  /*  @Override
+    @Override
     protected void setStatusBar() {
-        StatusBarUtil.setTranslucentForImageViewInFragment(this, null);
-    }*/
+        StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this, null);
+    }
 
 }

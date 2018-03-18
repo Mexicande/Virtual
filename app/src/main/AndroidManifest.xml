@@ -24,9 +24,21 @@
         <activity
             android:name=".activity.GetSweetActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.RateActivity" />
-        <activity android:name=".activity.child.RateChildActivity" />
-        <activity android:name=".activity.PriceActivity"></activity>
+        <activity
+            android:name=".activity.RateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.child.RateChildActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PriceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TerraceDescActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.CollectionActivity" />
+        <activity android:name=".activity.UserSweetActivity" />
+        <activity android:name=".activity.LoginActivity"></activity>
     </application>
 
 </manifest>

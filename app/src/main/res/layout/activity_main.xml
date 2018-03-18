@@ -11,7 +11,7 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent">
    </cn.com.virtualbitcoin.adapter.NoTouchViewPager>
-    <me.majiajie.pagerbottomtabstrip.PageBottomTabLayout
+    <me.majiajie.pagerbottomtabstrip.PageNavigationView
         android:id="@+id/tab"
         app:elevation="8dp"
         android:layout_width="match_parent"

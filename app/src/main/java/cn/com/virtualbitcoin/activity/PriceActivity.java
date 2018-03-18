@@ -1,27 +1,71 @@
 package cn.com.virtualbitcoin.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
-import butterknife.BindView;
+import java.util.ArrayList;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.com.virtualbitcoin.R;
+import cn.com.virtualbitcoin.adapter.AmountAdapter;
 import cn.com.virtualbitcoin.base.BaseActivity;
+import cn.com.virtualbitcoin.bean.AmountBean;
+import cn.com.virtualbitcoin.utils.Utils;
 
 public class PriceActivity extends BaseActivity {
 
-    @BindView(R.id.tv_title)
+    @Bind(R.id.tv_title)
     TextView tvTitle;
+    @Bind(R.id.amountRecycler)
+    RecyclerView amountRecycler;
+    private AmountAdapter mAmountAdapter;
+    private ArrayList<AmountBean> mList = new ArrayList<>();
+
+    public void goBack(View v) {
+        finish();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_price);
-        ButterKnife.bind(this);
+        initDate();
+        initView();
+    }
+
+    @Override
+    public int getLayoutResource() {
+        return R.layout.activity_price;
+    }
+
+    private void initDate() {
+        AmountBean amountBean = new AmountBean();
+        amountBean.setName("WTC");
+        amountBean.setWalton("walton");
+        amountBean.setPrice("￥98.43");
+        amountBean.setRange("-43.12%");
+        mList.add(amountBean);
+        mList.add(amountBean);
+        mList.add(amountBean);
+        mList.add(amountBean);
+        mList.add(amountBean);
+        mList.add(amountBean);
+    }
+
+    private void initView() {
+        mAmountAdapter = new AmountAdapter(mList);
+        amountRecycler.setLayoutManager(new LinearLayoutManager(this));
+        amountRecycler.addItemDecoration(new DividerItemDecoration(Utils.getApp(), DividerItemDecoration.VERTICAL));
+        amountRecycler.setAdapter(mAmountAdapter);
     }
 
     @Override
     protected void setToolbarTitle() {
-        setTitle(tvTitle,R.string.new_price);
+        tvTitle.setText(R.string.title_price);
     }
 }

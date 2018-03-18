@@ -13,6 +13,11 @@ android {
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86"
         }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
 
     signingConfigs {
@@ -86,9 +91,7 @@ dependencies {
     compile 'com.lzy.net:okserver:2.0.5'
     compile 'cn.bingoogolapple:bga-banner:2.1.6@aar'
     compile 'com.tencent.bugly:crashreport:latest.release'
-
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.meituan.android.walle:library:1.1.5'

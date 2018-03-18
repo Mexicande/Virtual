@@ -15,16 +15,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.activity.child.RateChildActivity;
 import cn.com.virtualbitcoin.adapter.RateAdapter;
 import cn.com.virtualbitcoin.bean.RateBean;
-import cn.com.virtualbitcoin.bean.SweetList;
 import cn.com.virtualbitcoin.utils.ActivityUtils;
-import cn.com.virtualbitcoin.utils.AppUtils;
 import cn.com.virtualbitcoin.utils.ToastUtils;
 import cn.com.virtualbitcoin.utils.Utils;
 import cn.com.virtualbitcoin.view.supertextview.SuperButton;
@@ -35,12 +32,12 @@ import cn.com.virtualbitcoin.view.supertextview.SuperButton;
 public class RateFragment extends Fragment {
 
 
-
-    @BindView(R.id.rate_Recycler)
+    @Bind(R.id.Rtext)
+    TextView Rtext;
+    @Bind(R.id.rate_Recycler)
     RecyclerView rateRecycler;
-    Unbinder unbinder;
     private RateAdapter rateAdapter;
-    ArrayList<RateBean> rateBeans=new ArrayList<>();
+    ArrayList<RateBean> rateBeans = new ArrayList<>();
 
     public RateFragment() {
         // Required empty public constructor
@@ -52,7 +49,7 @@ public class RateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_rate, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
         initDate();
         initView();
         setListener();
@@ -65,10 +62,10 @@ public class RateFragment extends Fragment {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 ToastUtils.showShort("收藏");
                 SuperButton viewByPosition = (SuperButton) rateAdapter.getViewByPosition(rateRecycler, position, R.id.bt_collection);
-                if(rateBeans.get(position).getCollection()==1){
+                if (rateBeans.get(position).getCollection() == 1) {
                     ToastUtils.showShort("收藏");
                     viewByPosition.setText("已收藏");
-                }else {
+                } else {
                     ToastUtils.showShort("已经收藏过了~~~~");
                 }
             }
@@ -84,7 +81,7 @@ public class RateFragment extends Fragment {
 
 
     private void initDate() {
-        RateBean rateBean=new RateBean();
+        RateBean rateBean = new RateBean();
         rateBean.setCn_name("比特币");
         rateBean.setEn_name("GEC");
         rateBean.setCollection(1);
@@ -97,8 +94,9 @@ public class RateFragment extends Fragment {
 
 
     }
+
     private void initView() {
-        rateAdapter=new RateAdapter(rateBeans);
+        rateAdapter = new RateAdapter(rateBeans);
         rateRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         rateRecycler.setAdapter(rateAdapter);
         rateRecycler.addItemDecoration(new DividerItemDecoration(Utils.getApp(), DividerItemDecoration.VERTICAL));
@@ -108,6 +106,6 @@ public class RateFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        ButterKnife.unbind(this);
     }
 }

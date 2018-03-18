@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="terrace">
+        <item>平台</item>
+        <item>钱包</item>
+    </string-array>
+</resources>

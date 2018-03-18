@@ -3,7 +3,6 @@ package cn.com.virtualbitcoin.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -28,18 +27,17 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.activity.GetSweetActivity;
+import cn.com.virtualbitcoin.activity.PriceActivity;
 import cn.com.virtualbitcoin.activity.RateActivity;
 import cn.com.virtualbitcoin.adapter.MyViewPagerAdapter;
 import cn.com.virtualbitcoin.adapter.NoTouchViewPager;
 import cn.com.virtualbitcoin.utils.ActivityUtils;
-import cn.com.virtualbitcoin.utils.AppUtils;
 import cn.com.virtualbitcoin.utils.Utils;
 
 /**
@@ -48,16 +46,15 @@ import cn.com.virtualbitcoin.utils.Utils;
 public class MainFragment extends Fragment {
 
 
-    @BindView(R.id.tv_title)
+    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.banner_fresco_demo_content)
+    @Bind(R.id.banner_fresco_demo_content)
     BGABanner bannerFrescoDemoContent;
-    @BindView(R.id.magic_indicator)
+    @Bind(R.id.magic_indicator)
     MagicIndicator magicIndicator;
-    @BindView(R.id.view_pager)
+    @Bind(R.id.view_pager)
     NoTouchViewPager viewPager;
-    Unbinder unbinder;
-    List<String> mDataList = new ArrayList<>();
+    private List<String> mDataList = new ArrayList<>();
 
 
     private FragmentContainerHelper mFragmentContainerHelper = new FragmentContainerHelper();
@@ -72,18 +69,13 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        initFragment();
+        ButterKnife.bind(this, view);
         mFragmentContainerHelper.attachMagicIndicator(magicIndicator);
+        initFragment();
 
         return view;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     private void initFragment() {
         mDataList.add(getResources().getString(R.string.sweets));
@@ -91,7 +83,7 @@ public class MainFragment extends Fragment {
         List<Fragment> list = new ArrayList<>();
         list.add(new SweetsFragment());
         list.add(new RateFragment());
-        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getFragmentManager(), list);
+        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getChildFragmentManager(), list);
         viewPager.setAdapter(myViewPagerAdapter);
         CommonNavigator commonNavigator = new CommonNavigator(getContext());
         commonNavigator.setAdjustMode(true);
@@ -151,6 +143,8 @@ public class MainFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        ButterKnife.unbind(this);
+
     }
 
     @OnClick({R.id.way_sweet, R.id.way_rate, R.id.way_price})
@@ -163,6 +157,7 @@ public class MainFragment extends Fragment {
                 ActivityUtils.startActivity(RateActivity.class);
                 break;
             case R.id.way_price:
+                ActivityUtils.startActivity(PriceActivity.class);
                 break;
             default:
                 break;

@@ -5,4 +5,13 @@
     android:orientation="vertical"
     tools:context="cn.com.virtualbitcoin.fragment.TerraceFragment">
    <include layout="@layout/toolbar_item"/>
+   <net.lucode.hackware.magicindicator.MagicIndicator
+       android:id="@+id/indicator"
+       android:layout_width="match_parent"
+       android:layout_height="50dp">
+   </net.lucode.hackware.magicindicator.MagicIndicator>
+   <cn.com.virtualbitcoin.adapter.NoTouchViewPager
+       android:id="@+id/terrace_viewpager"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"/>
 </LinearLayout>

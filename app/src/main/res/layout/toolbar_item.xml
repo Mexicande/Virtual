@@ -4,10 +4,15 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="wrap_content">
+    <View
+        android:id="@+id/fake_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/statusbar_view_height"
+        android:background="@color/colorPrimary"/>
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:text="@string/app_name"

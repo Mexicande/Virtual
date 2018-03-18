@@ -27,7 +27,7 @@ public class RateAdapter extends BaseQuickAdapter<RateBean,BaseViewHolder> {
         helper.setText(R.id.EN_name,item.getEn_name())
                 .setText(R.id.CN_name,item.getCn_name())
                 .setText(R.id.tv_rate,item.getRate_num())
-                .setRating(R.id.rating,Float.parseFloat(item.getRate_num()))
+                .setRating(R.id.rating,item.getRate_num()!=null? (float) 5.0 :Float.parseFloat(item.getRate_num()))
         .addOnClickListener(R.id.bt_collection);
         setSuper((SuperButton) helper.getView(R.id.bt_collection),item.getCollection());
     }

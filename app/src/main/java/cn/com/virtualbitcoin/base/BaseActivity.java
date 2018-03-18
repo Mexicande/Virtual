@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
 
+import butterknife.ButterKnife;
 import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.utils.AppUtils;
 import cn.com.virtualbitcoin.utils.StatusBarUtil;
@@ -22,27 +23,26 @@ import cn.com.virtualbitcoin.utils.ToastUtils;
  * Created by apple on 2018/3/15.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(getLayoutResource());
+        ButterKnife.bind(this);
         setStatusBar();
         setToolbarTitle();
 
     }
+    public abstract int getLayoutResource();
+
     protected  void setToolbarTitle() {
-        setTitle(null ,0);
+
     }
 
-    protected void setTitle(TextView tv, int s) {
-        if(tv!=null){
-            tv.setText(s);
-        }
+    protected void setStatusBar() {
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary));
     }
 
-    private void setStatusBar() {
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimaryDark));
-    }
     @Override
     public void onResume() {
         super.onResume();

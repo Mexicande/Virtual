@@ -7,10 +7,57 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <cn.com.virtualbitcoin.view.supertextview.SuperButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/num"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             app:sCornersRadius="5dp"
             android:text="1"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
             app:sSolidColor="@color/colorPrimary"/>
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/num"
+            android:id="@+id/EN_name"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GEC"
+            android:textSize="17sp"
+            android:textColor="@color/black_color"/>
+        <TextView
+            android:id="@+id/CN_name"
+            android:layout_toRightOf="@id/EN_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="walton"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"
+            android:textColor="@color/black_666"/>
+        <cn.com.virtualbitcoin.view.supertextview.SuperButton
+            android:id="@+id/bt_range"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:text="-43.12%"
+            android:textSize="13sp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            app:sSolidColor="@color/red_fb4747"/>
+        <TextView
+            android:id="@+id/tv_price"
+            android:textSize="15sp"
+            android:layout_marginRight="30dp"
+            android:textColor="@color/black_01"
+            android:layout_toLeftOf="@id/bt_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥98.43"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 </RelativeLayout>

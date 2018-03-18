@@ -5,14 +5,13 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.com.virtualbitcoin.R;
@@ -21,33 +20,30 @@ import cn.com.virtualbitcoin.adapter.RateAdapter;
 import cn.com.virtualbitcoin.base.BaseActivity;
 import cn.com.virtualbitcoin.bean.RateBean;
 import cn.com.virtualbitcoin.utils.ActivityUtils;
-import cn.com.virtualbitcoin.utils.AppUtils;
-import cn.com.virtualbitcoin.utils.StatusBarUtil;
 import cn.com.virtualbitcoin.utils.ToastUtils;
 import cn.com.virtualbitcoin.utils.Utils;
 import cn.com.virtualbitcoin.view.supertextview.SuperButton;
 
 public class RateActivity extends BaseActivity {
 
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
-    @BindView(R.id.tv_title)
+    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.Rtext)
-    TextView Rtext;
-    @BindView(R.id.rate_Recycler)
+    @Bind(R.id.rate_Recycler)
     RecyclerView rateRecycler;
     private RateAdapter rateAdapter;
-    ArrayList<RateBean> rateBeans=new ArrayList<>();
+    ArrayList<RateBean> rateBeans = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rate);
-        ButterKnife.bind(this);
         initDate();
         initView();
         setListener();
+    }
+
+    @Override
+    public int getLayoutResource() {
+        return R.layout.activity_rate;
     }
 
     public void goBack(View v) {
@@ -60,10 +56,10 @@ public class RateActivity extends BaseActivity {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 ToastUtils.showShort("收藏");
                 SuperButton viewByPosition = (SuperButton) rateAdapter.getViewByPosition(rateRecycler, position, R.id.bt_collection);
-                if(rateBeans.get(position).getCollection()==1){
+                if (rateBeans.get(position).getCollection() == 1) {
                     ToastUtils.showShort("收藏");
                     viewByPosition.setText("已收藏");
-                }else {
+                } else {
                     ToastUtils.showShort("已经收藏过了~~~~");
                 }
             }
@@ -78,12 +74,12 @@ public class RateActivity extends BaseActivity {
 
 
     private void initDate() {
-        RateBean rateBean=new RateBean();
+        RateBean rateBean = new RateBean();
         rateBean.setCn_name("比特币");
         rateBean.setEn_name("GEC");
         rateBean.setCollection(1);
         rateBean.setRate_num("4.5");
-        RateBean rateBean2=new RateBean();
+        RateBean rateBean2 = new RateBean();
         rateBean2.setCn_name("比特币");
         rateBean2.setEn_name("GEC");
         rateBean2.setCollection(0);
@@ -97,13 +93,15 @@ public class RateActivity extends BaseActivity {
 
 
     }
+
     private void initView() {
-        rateAdapter=new RateAdapter(rateBeans);
+        rateAdapter = new RateAdapter(rateBeans);
         rateRecycler.setLayoutManager(new LinearLayoutManager(this));
         rateRecycler.setAdapter(rateAdapter);
         rateRecycler.addItemDecoration(new DividerItemDecoration(Utils.getApp(), DividerItemDecoration.VERTICAL));
 
     }
+
     @OnClick({R.id.iv_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -117,7 +115,7 @@ public class RateActivity extends BaseActivity {
 
     @Override
     protected void setToolbarTitle() {
-        setTitle(tvTitle,R.string.block_rate);
+        tvTitle.setText(R.string.title_block_rate);
     }
     /*   @Override
     protected void setStatusBar() {

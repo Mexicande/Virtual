@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">区块糖果</string>
+    <!--title-->
+    <string name="sweet_title">领取糖果</string>
+    <string name="title_block_rate">区块链评级</string>
+    <string name="title_collection">我的收藏</string>
+    <string name="title_price">当前价格</string>
+    <string name="title_usersweet">我的糖果</string>
+    <string name="title_login">登录</string>
+    <string name="title_register">注册</string>
+    <string name="title_pw">忘记密码</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -14,14 +23,16 @@
     <string name="get_people">领取人数</string>
     <string name="click">点击领取</string>
     <string name="amount">涨跌幅</string>
+    <string name="price">涨跌幅</string>
+    <string name="website">官网地址</string>
 
+    <string name="title_terrace">平台</string>
+    <string name="title_wallet">钱包</string>
 
     <!-- error-->
     <string name="network_error">请检查网络</string>
     <string name="data_error">数据异常</string>
     <string name="net_error">网络请求失败</string>
 
-    <!--title-->
-    <string name="sweet_title">领取糖果</string>
-    <string name="block_rate">区块链评级</string>
+
 </resources>

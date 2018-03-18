@@ -1,12 +1,10 @@
 package cn.com.virtualbitcoin.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,25 +12,23 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.adapter.SweetAdapter;
 import cn.com.virtualbitcoin.base.BaseActivity;
 import cn.com.virtualbitcoin.bean.SweetList;
-import cn.com.virtualbitcoin.utils.StatusBarUtil;
 import cn.com.virtualbitcoin.utils.Utils;
 
 /**
  * @author apple
  */
 public class GetSweetActivity extends BaseActivity {
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
-    @BindView(R.id.tv_title)
+    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.sweet_recycler)
+    @Bind(R.id.Rtext)
+    TextView Rtext;
+    @Bind(R.id.sweet_recycler)
     RecyclerView mSweetRecycler;
     private SweetAdapter mSweetAdapter;
     ArrayList<SweetList> arrayList = new ArrayList<>();
@@ -40,10 +36,13 @@ public class GetSweetActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_sweet);
-        ButterKnife.bind(this);
         initDate();
         initView();
+    }
+
+    @Override
+    public int getLayoutResource() {
+        return R.layout.activity_get_sweet;
     }
 
     public void goBack(View v) {
@@ -102,7 +101,10 @@ public class GetSweetActivity extends BaseActivity {
             }
         });
     }
-
+    @Override
+    protected void setToolbarTitle() {
+        tvTitle.setText(R.string.sweet_title);
+    }
 
 /*    @Override
     protected void setStatusBar() {

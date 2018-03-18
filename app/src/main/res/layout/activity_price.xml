@@ -21,14 +21,14 @@
             android:textColor="@color/black_333"
             android:text="@string/nick"/>
         <TextView
-            android:layout_marginRight="80dp"
+            android:layout_marginRight="100dp"
             android:id="@+id/Rtext"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@color/black_333"
-            android:text="@string/click"/>
+            android:text="@string/price"/>
         <TextView
             android:id="@+id/amount"
             android:layout_marginRight="10dp"
