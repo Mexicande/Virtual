@@ -12,7 +12,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.activity.child.RateChildActivity;
@@ -24,6 +23,10 @@ import cn.com.virtualbitcoin.utils.ToastUtils;
 import cn.com.virtualbitcoin.utils.Utils;
 import cn.com.virtualbitcoin.view.supertextview.SuperButton;
 
+/**
+ *  区块链评级
+ *
+ */
 public class RateActivity extends BaseActivity {
 
     @Bind(R.id.tv_title)
@@ -34,14 +37,6 @@ public class RateActivity extends BaseActivity {
     ArrayList<RateBean> rateBeans = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initDate();
-        initView();
-        setListener();
-    }
-
-    @Override
     public int getLayoutResource() {
         return R.layout.activity_rate;
     }
@@ -50,17 +45,24 @@ public class RateActivity extends BaseActivity {
         finish();
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initDate();
+        initView();
+        setListener();
+    }
+
     private void setListener() {
         rateAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showShort("收藏");
                 SuperButton viewByPosition = (SuperButton) rateAdapter.getViewByPosition(rateRecycler, position, R.id.bt_collection);
                 if (rateBeans.get(position).getCollection() == 1) {
-                    ToastUtils.showShort("收藏");
-                    viewByPosition.setText("已收藏");
-                } else {
                     ToastUtils.showShort("已经收藏过了~~~~");
+                } else {
+                    ToastUtils.showShort("收藏成功");
+                    viewByPosition.setText("已收藏");
                 }
             }
         });

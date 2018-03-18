@@ -11,6 +11,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.activity.CollectionActivity;
+import cn.com.virtualbitcoin.activity.login.LoginActivity;
 import cn.com.virtualbitcoin.activity.UserSweetActivity;
 import cn.com.virtualbitcoin.utils.ActivityUtils;
 
@@ -40,7 +41,7 @@ public class CenterFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.my_collection, R.id.my_sweet, R.id.chang_pw, R.id.join_qq, R.id.join_wechat, R.id.about, R.id.update})
+    @OnClick({R.id.my_collection, R.id.my_sweet, R.id.chang_pw, R.id.join_qq, R.id.join_wechat, R.id.about, R.id.update,R.id.login,R.id.register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_collection:
@@ -58,6 +59,11 @@ public class CenterFragment extends Fragment {
             case R.id.about:
                 break;
             case R.id.update:
+                break;
+            case R.id.login:
+                ActivityUtils.startActivity(LoginActivity.class);
+                break;
+            case R.id.register:
                 break;
             default:
                 break;

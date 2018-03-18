@@ -21,7 +21,7 @@
             android:textColor="@color/black_333"
             android:text="@string/nick"/>
         <TextView
-            android:layout_marginRight="70dp"
+            android:layout_marginRight="80dp"
             android:id="@+id/Rtext"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
@@ -30,10 +30,19 @@
             android:textColor="@color/black_333"
             android:text="评分"/>
     </RelativeLayout>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rate_Recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

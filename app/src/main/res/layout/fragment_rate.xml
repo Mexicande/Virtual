@@ -17,7 +17,7 @@
             android:textColor="@color/black_333"
             android:text="@string/nick"/>
         <TextView
-            android:layout_marginRight="70dp"
+            android:layout_marginRight="80dp"
             android:id="@+id/Rtext"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"

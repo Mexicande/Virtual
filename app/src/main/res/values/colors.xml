@@ -10,6 +10,7 @@
     <color name="common_pressed">#20000000</color>  <!--白色背景按下去的颜色-->
     <color name="line">#e8e8e8</color>
     <color name="bg">#f2f3f5</color>
+    <color name="gay_text">#999999</color>
 
     <color name="black_color">#000000</color>
     <color name="black_01">#010101</color>
@@ -22,4 +23,7 @@
     <color name="red_fb4747">#FB4747</color>
     <color name="yellow_2D">#FFDB2D</color>
     <color name="yellow_cf">#f9f2cf</color>
+
+    <color name="rryt_bg_vc_scanning_color_1">#f0ffffff</color>
+    <color name="rryt_bg_vc_scanning_color_2">#11ffffff</color>
 </resources>

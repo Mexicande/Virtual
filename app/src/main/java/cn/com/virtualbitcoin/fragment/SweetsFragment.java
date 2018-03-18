@@ -60,6 +60,7 @@ public class SweetsFragment extends Fragment {
             }
         });*/
         recycler.setAdapter(sweetAdapter);
+        recycler.setHasFixedSize(true);
         recycler.setNestedScrollingEnabled(false);
 
 

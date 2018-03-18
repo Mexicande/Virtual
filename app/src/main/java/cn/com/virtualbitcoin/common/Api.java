@@ -21,56 +21,34 @@ import cn.com.virtualbitcoin.intr.OnRequestDataListener;
  */
 
 public class Api {
-
     public  static  String HOST="http://test.api.bi.anwenqianbao.com/v1/";
-
+    //banner图
     public  static  String GET_BANNER="banner/getBanner";
-
-
-
-
-    public static void getBanner(final Context context, String s, final OnRequestDataListener listener) {
-        newExcuteJsonPost(GET_BANNER, context, s,listener);
+    //注册
+    public  static  String GET_REGISTER="register/register";
+    //登录
+    public  static  String GET_LOGIN="login/login";
+    //发送验证码
+    public  static  String SEED_MESS="sms/getPwdCode";
+    //忘记密码
+    public  static  String GET_FORGET="person/testCode";
+    //领取糖果
+    public  static  String GET_SWEET="candy/addCandy";
+    //评级列表
+    public  static  String GET_GRADELSIT="candy/getCandy";
+    //糖果列表
+    public  static  String GET_SWEETLSIT="grade/getGrade";
+    //当前价格
+    public  static  String GET_PRICE="coin/getCoin";
+    //我的糖果
+    public  static  String GET_MYSWEET="candy/myCandy";
+    //add收藏
+    public  static  String GET_COLLECTION="grade/addGrade";
+    //
+    public static void getReQuest(String url,final Context context, String s, final OnRequestDataListener listener) {
+        QuestionPost.newExcuteJsonPost(url, context, s,listener);
     }
 
-    protected static void newExcuteJsonPost(String url, final Context context,String  s, final OnRequestDataListener listener){
-        final String netError = context.getString(R.string.net_error);
 
-        OkGo.<String>post(url)
-                .tag(context)
-                .upJson(s)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        if(response.body()!=null){
-                            try {
-                                JSONObject jsonObject=new JSONObject(response.body());
-
-                                int error_code = jsonObject.getInt("error_code");
-                                if(error_code==200){
-                                    listener.requestSuccess(0, jsonObject);
-                                }else {
-                                    listener.requestFailure(-1, jsonObject.getString("error_message"));
-                                }
-
-                            } catch (JSONException ignored) {
-
-                            }
-
-                        }else {
-                            listener.requestFailure(-1, netError);
-
-                        }
-                    }
-
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        listener.requestFailure(-1, netError);
-                    }
-                });
-
-
-    }
 
 }
