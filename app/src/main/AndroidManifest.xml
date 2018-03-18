@@ -25,7 +25,8 @@
             android:name=".activity.GetSweetActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.RateActivity" />
-        <activity android:name=".activity.child.RateChildActivity"></activity>
+        <activity android:name=".activity.child.RateChildActivity" />
+        <activity android:name=".activity.PriceActivity"></activity>
     </application>
 
 </manifest>

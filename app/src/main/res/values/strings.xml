@@ -13,6 +13,7 @@
     <string name="nick">名称</string>
     <string name="get_people">领取人数</string>
     <string name="click">点击领取</string>
+    <string name="amount">涨跌幅</string>
 
 
     <!-- error-->
