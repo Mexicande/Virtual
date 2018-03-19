@@ -24,7 +24,6 @@ public class SweetAdapter extends BaseQuickAdapter<SweetList,BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, SweetList item) {
         helper.setText(R.id.EN_name,item.getEn_name())
-                .setText(R.id.CN_name,item.getCn_name())
                 .setText(R.id.people_num,item.getPeople_num())
                 .addOnClickListener(R.id.layout)
                 .addOnClickListener(R.id.layout1)

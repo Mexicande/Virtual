@@ -49,7 +49,6 @@ public class UserSweetActivity extends BaseActivity {
     private void initDate() {
         UserSweetBean userSweetBean=new UserSweetBean();
         userSweetBean.setEn_name("GEC");
-        userSweetBean.setCn_name("比特币");
         mList.add(userSweetBean);
         mList.add(userSweetBean);
         mList.add(userSweetBean);

@@ -7,7 +7,6 @@ package cn.com.virtualbitcoin.bean;
 public class SweetList {
 
     private String en_name;
-    private String cn_name;
     private String people_num;
     private int way_get;
 
@@ -19,13 +18,6 @@ public class SweetList {
         this.en_name = en_name;
     }
 
-    public String getCn_name() {
-        return cn_name;
-    }
-
-    public void setCn_name(String cn_name) {
-        this.cn_name = cn_name;
-    }
 
     public String getPeople_num() {
         return people_num;
@@ -47,7 +39,6 @@ public class SweetList {
     public String toString() {
         return "SweetAdapter{" +
                 "en_name='" + en_name + '\'' +
-                ", cn_name='" + cn_name + '\'' +
                 ", people_num='" + people_num + '\'' +
                 ", way_get=" + way_get +
                 '}';

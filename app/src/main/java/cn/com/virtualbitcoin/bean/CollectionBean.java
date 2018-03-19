@@ -8,7 +8,6 @@ public class CollectionBean {
 
     private String logo;
     private String en_name;
-    private String cn_name;
     private String star;
     private String datetime;
 
@@ -28,13 +27,6 @@ public class CollectionBean {
         this.en_name = en_name;
     }
 
-    public String getCn_name() {
-        return cn_name;
-    }
-
-    public void setCn_name(String cn_name) {
-        this.cn_name = cn_name;
-    }
 
     public String getStar() {
         return star;
@@ -57,7 +49,6 @@ public class CollectionBean {
         return "CollectionBean{" +
                 "logo='" + logo + '\'' +
                 ", en_name='" + en_name + '\'' +
-                ", cn_name='" + cn_name + '\'' +
                 ", star='" + star + '\'' +
                 ", datetime='" + datetime + '\'' +
                 '}';

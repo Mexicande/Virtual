@@ -44,7 +44,7 @@ public class RateChildActivity extends BaseActivity {
 
     @Override
     protected void setToolbarTitle() {
-        tvTitle.setText(R.string.title_collection);
+        tvTitle.setText(R.string.blockchain_rate);
     }
 
 }

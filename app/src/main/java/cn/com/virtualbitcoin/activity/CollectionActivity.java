@@ -58,12 +58,10 @@ public class CollectionActivity extends BaseActivity {
 
         CollectionBean collectionBean=new CollectionBean();
             collectionBean.setEn_name("GEC");
-            collectionBean.setCn_name("比特币");
             collectionBean.setStar("4.0");
             collectionBean.setDatetime("2018/3/15");
         CollectionBean collectionBean1=new CollectionBean();
             collectionBean1.setEn_name("ETH");
-            collectionBean1.setCn_name("以太坊");
             collectionBean1.setStar("3.0");
             collectionBean1.setDatetime("2018/3/18");
 

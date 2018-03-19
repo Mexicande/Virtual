@@ -5,12 +5,14 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.adapter.AmountAdapter;
 import cn.com.virtualbitcoin.base.BaseActivity;
@@ -23,7 +25,10 @@ public class PriceActivity extends BaseActivity {
     TextView tvTitle;
     @Bind(R.id.amountRecycler)
     RecyclerView amountRecycler;
+    @Bind(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
     private AmountAdapter mAmountAdapter;
+    private View notDataView;
     private ArrayList<AmountBean> mList = new ArrayList<>();
 
     public void goBack(View v) {
@@ -62,6 +67,8 @@ public class PriceActivity extends BaseActivity {
         amountRecycler.setLayoutManager(new LinearLayoutManager(this));
         amountRecycler.addItemDecoration(new DividerItemDecoration(Utils.getApp(), DividerItemDecoration.VERTICAL));
         amountRecycler.setAdapter(mAmountAdapter);
+        notDataView = getLayoutInflater().inflate(R.layout.empty_view, (ViewGroup) amountRecycler.getParent(), false);
+
     }
 
     @Override

@@ -4,6 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="cn.com.virtualbitcoin.activity.TerraceDescActivity">
     <include layout="@layout/back_tooble_item"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="11111111111111111111111111111111111111111111111111111111111
+            11111111111111111111111111"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="11111111111111111111111111111111111111111111111111111111111
+            11111111111111111111111111"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:background="@drawable/rlyt_bg_vc_scanning_device_bottom"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 </LinearLayout>

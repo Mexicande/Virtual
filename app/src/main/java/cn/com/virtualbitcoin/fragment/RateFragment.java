@@ -82,7 +82,6 @@ public class RateFragment extends Fragment {
 
     private void initDate() {
         RateBean rateBean = new RateBean();
-        rateBean.setCn_name("比特币");
         rateBean.setEn_name("GEC");
         rateBean.setCollection(1);
         rateBean.setRate_num("4.5");
@@ -100,7 +99,8 @@ public class RateFragment extends Fragment {
         rateRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         rateRecycler.setAdapter(rateAdapter);
         rateRecycler.addItemDecoration(new DividerItemDecoration(Utils.getApp(), DividerItemDecoration.VERTICAL));
-
+        rateRecycler.setHasFixedSize(true);
+        rateRecycler.setNestedScrollingEnabled(false);
     }
 
     @Override

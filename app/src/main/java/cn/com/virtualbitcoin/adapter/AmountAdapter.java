@@ -21,7 +21,6 @@ public class AmountAdapter extends BaseQuickAdapter<AmountBean,BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, AmountBean item) {
         helper.setText(R.id.EN_name,item.getName())
-                .setText(R.id.CN_name,item.getWalton())
                 .setText(R.id.tv_price,item.getPrice())
                 .setText(R.id.bt_range,item.getRange())
                 .setText(R.id.num,String.valueOf(helper.getAdapterPosition()+1))

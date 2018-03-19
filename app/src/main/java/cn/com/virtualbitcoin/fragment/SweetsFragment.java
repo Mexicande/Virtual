@@ -60,6 +60,7 @@ public class SweetsFragment extends Fragment {
             }
         });*/
         recycler.setAdapter(sweetAdapter);
+        recycler.setHasFixedSize(true);
         recycler.setNestedScrollingEnabled(false);
 
 
@@ -88,7 +89,6 @@ public class SweetsFragment extends Fragment {
 
     private void initDate() {
         SweetList list = new SweetList();
-        list.setCn_name("比特币");
         list.setEn_name("GEC");
         list.setPeople_num("已领取300人");
         list.setWay_get(1);

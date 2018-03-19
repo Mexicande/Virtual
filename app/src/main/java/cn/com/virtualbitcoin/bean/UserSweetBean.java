@@ -7,7 +7,6 @@ package cn.com.virtualbitcoin.bean;
 public class UserSweetBean {
     private String logo;
     private String en_name;
-    private String cn_name;
 
     public String getLogo() {
         return logo;
@@ -25,20 +24,12 @@ public class UserSweetBean {
         this.en_name = en_name;
     }
 
-    public String getCn_name() {
-        return cn_name;
-    }
-
-    public void setCn_name(String cn_name) {
-        this.cn_name = cn_name;
-    }
 
     @Override
     public String toString() {
         return "UserSweetBean{" +
                 "logo='" + logo + '\'' +
                 ", en_name='" + en_name + '\'' +
-                ", cn_name='" + cn_name + '\'' +
                 '}';
     }
 }

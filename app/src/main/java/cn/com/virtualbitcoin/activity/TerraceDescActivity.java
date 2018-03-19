@@ -1,6 +1,7 @@
 package cn.com.virtualbitcoin.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -12,6 +13,9 @@ public class TerraceDescActivity extends BaseActivity {
 
     @Bind(R.id.tv_title)
     TextView tvTitle;
+    public void goBack(View v) {
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

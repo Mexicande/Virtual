@@ -25,7 +25,6 @@ public class CollectionAdapter extends BaseQuickAdapter<CollectionBean,BaseViewH
     @Override
     protected void convert(BaseViewHolder helper, CollectionBean item) {
         helper.setText(R.id.en_name,item.getEn_name())
-                .setText(R.id.cn_name,item.getCn_name())
                 .setText(R.id.tv_star,item.getStar())
         .setRating(R.id.rating, item.getStar()==null? (float) 5.0 :Float.parseFloat(item.getStar()))
         .setText(R.id.date,item.getDatetime());

@@ -52,7 +52,6 @@ public class GetSweetActivity extends BaseActivity {
     private void initDate() {
         tvTitle.setText(R.string.sweet_title);
         SweetList list = new SweetList();
-        list.setCn_name("比特币");
         list.setEn_name("GEC");
         list.setPeople_num("已领取300人");
         list.setWay_get(1);

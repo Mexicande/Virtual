@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 public class RateBean implements Serializable {
     private String en_name;
-    private String cn_name;
     private String rate_num;
     private int collection;
 
@@ -20,13 +19,6 @@ public class RateBean implements Serializable {
         this.en_name = en_name;
     }
 
-    public String getCn_name() {
-        return cn_name;
-    }
-
-    public void setCn_name(String cn_name) {
-        this.cn_name = cn_name;
-    }
 
     public String getRate_num() {
         return rate_num;

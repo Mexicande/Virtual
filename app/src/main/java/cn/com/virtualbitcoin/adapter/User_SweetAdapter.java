@@ -24,8 +24,7 @@ public class User_SweetAdapter extends BaseQuickAdapter<UserSweetBean,BaseViewHo
 
     @Override
     protected void convert(BaseViewHolder helper, UserSweetBean item) {
-        helper.setText(R.id.cn_name,item.getCn_name())
-                .setText(R.id.en_name,item.getEn_name());
+        helper.setText(R.id.en_name,item.getEn_name());
         Glide.with(mContext).load(item.getLogo())
                 .error(R.mipmap.ic_launcher)
                 .placeholder(R.mipmap.ic_launcher)
