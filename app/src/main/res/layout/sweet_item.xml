@@ -19,23 +19,13 @@
         android:layout_height="50dp">
             <TextView
                 android:id="@+id/EN_name"
-                android:paddingLeft="18dp"
+                android:paddingLeft="20dp"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="GEC"
                 android:textSize="17sp"
                 android:textColor="@color/black_color"/>
-            <TextView
-                android:id="@+id/CN_name"
-                android:layout_toRightOf="@id/EN_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="比特币"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:textSize="15sp"
-                android:textColor="@color/black_666"/>
             <ImageView
                 android:id="@+id/iv_get"
                 android:layout_marginRight="10dp"
