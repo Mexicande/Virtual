@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     app:cardUseCompatPadding="true"
+    android:background="@color/white"
     app:cardElevation="0.3dp"
     app:cardCornerRadius="5dp">
 <LinearLayout
@@ -13,13 +14,12 @@
     android:layout_height="wrap_content">
     <RelativeLayout
         android:id="@+id/layout1"
-        android:visibility="visible"
         android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="50dp">
             <TextView
                 android:id="@+id/EN_name"
-                android:paddingLeft="20dp"
+                android:paddingLeft="18dp"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,24 +48,23 @@
         </RelativeLayout>
     <RelativeLayout
         android:id="@+id/layout2"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
             android:id="@+id/layout"
-            android:paddingLeft="18dp"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="50dp">
             <TextView
                 android:id="@+id/EN_name1"
+                android:paddingLeft="18dp"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="GEC"
                 android:textSize="17sp"
                 android:textColor="@color/black_color"/>
-
-
             <TextView
                 android:id="@+id/people_num1"
                 android:layout_marginRight="50dp"
@@ -112,12 +111,13 @@
 
                     android:text="介绍:"/>
                 <TextView
+                    android:id="@+id/tv_introduction"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black_333"
-                    android:text="介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍"/>
+                    android:text=""/>
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="10dp"
@@ -131,11 +131,12 @@
                     android:textColor="@color/black_333"
                     android:text="发放规则:"/>
                 <TextView
+                    android:id="@+id/put_rule"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black_333"
-                    android:text="发放规则发放规则发放规则发放规则发放规则发放规则发放规则发放规则发放规则发放规则发放规则发放规则发放"/>
+                    android:text=""/>
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="10dp"
@@ -149,11 +150,12 @@
                     android:textColor="@color/black_333"
                     android:text="领取规则:"/>
                 <TextView
+                    android:id="@+id/give_rule"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black_333"
-                    android:text="领取规则领取规则领取规则领取规则领取规则领取规则领取规则领取规则领取规则规则发放规则发放规则发放规则发放规则发放规则发放规则发放"/>
+                    android:text=""/>
             </LinearLayout>
             <View
                 android:layout_marginTop="5dp"
@@ -169,31 +171,26 @@
                     android:layout_width="0.7dp"
                     android:background="@color/white_ef"
                     android:layout_height="match_parent"/>
-                <RelativeLayout
-                    android:layout_toLeftOf="@id/view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
                     <TextView
+                        android:id="@+id/tv_sign"
                         android:textSize="17sp"
+                        android:gravity="center"
+                        android:layout_toLeftOf="@id/view"
                         android:textColor="@color/black_color"
                         android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:text="标记已领取"/>
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_toRightOf="@id/view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
                     <TextView
+                        android:id="@+id/tv_toGet"
+                        android:layout_toRightOf="@id/view"
                         android:textSize="17sp"
+                        android:gravity="center"
                         android:textColor="@color/red_666"
                         android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:text="去领取"/>
-                </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

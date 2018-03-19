@@ -4,6 +4,7 @@
     android:id="@+id/appbar_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:elevation="0dp"
     android:background="@color/white">
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
@@ -23,7 +24,6 @@
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="登录"
                     android:textSize="18sp"
                     android:textColor="@color/black_color"
                     />

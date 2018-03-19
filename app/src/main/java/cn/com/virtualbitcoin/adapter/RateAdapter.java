@@ -17,25 +17,25 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
  * Created by apple on 2018/3/17.
  */
 
-public class RateAdapter extends BaseQuickAdapter<RateBean,BaseViewHolder> {
-    public RateAdapter( List<RateBean> data) {
+public class RateAdapter extends BaseQuickAdapter<RateBean.GradeBean,BaseViewHolder> {
+    public RateAdapter( List<RateBean.GradeBean> data) {
         super(R.layout.rate_item, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, RateBean item) {
-        helper.setText(R.id.EN_name,item.getEn_name())
-                .setText(R.id.tv_rate,item.getRate_num())
-                .setRating(R.id.rating,item.getRate_num()!=null? (float) 5.0 :Float.parseFloat(item.getRate_num()))
-        .addOnClickListener(R.id.bt_collection);
-        setSuper((SuperButton) helper.getView(R.id.bt_collection),item.getCollection());
+    protected void convert(BaseViewHolder helper, RateBean.GradeBean item) {
+        helper.setText(R.id.EN_name,item.getName())
+                .setText(R.id.tv_rate,item.getGade())
+                .setRating(R.id.rating,item.getGade()!=null? (float) 5.0 :Float.parseFloat(item.getGade()))
+                .setText(R.id.bt_collection,("0").equals(item.getStatus())?"收藏":"已收藏")
+                .addOnClickListener(R.id.bt_collection);
     }
 
-    private void setSuper(SuperButton view ,int i) {
+  /*  private void setSuper(SuperButton view ,int i) {
         if(i==0){
             view.setText("收藏");
         }else {
             view.setText("已收藏");
         }
-    }
+    }*/
 }

@@ -3,6 +3,7 @@
     <color name="colorPrimary">#1E82D2</color>
     <color name="colorPrimaryDark">#1867a5</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentdefault">#6bace0</color>
 
 
     <!-- 白色 -->

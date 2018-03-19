@@ -10,8 +10,18 @@
     <string name="title_register">注册</string>
     <string name="title_pw">忘记密码</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register_hint">请输入验证码</string>
+    <string name="captcha_btn_resend">重发验证码</string>
+    <string name="validate_btn_hint">获取验证码</string>
+
+
+    <string name="rate_ico">ICO date: </string>
+    <string name="rate_product">Product type: </string>
+    <string name="rate_industry">Industry: </string>
+    <string name="rate_desc">Description: </string>
+    <string name="rate_feat">Features: </string>
+    <string name="rate_tech">Technical details: </string>
+    <string name="rate_Website">Website: </string>
 
     <!--home-->
     <string name="get_sweets">领取糖果</string>
@@ -25,6 +35,9 @@
     <string name="amount">涨跌幅</string>
     <string name="price">涨跌幅</string>
     <string name="website">官网地址</string>
+    <string name="login">登录</string>
+    <string name="quit">退出登陆</string>
+    <string name="deal">《区块糖果用户登录注册协议》</string>
 
     <string name="title_terrace">平台</string>
     <string name="title_wallet">钱包</string>

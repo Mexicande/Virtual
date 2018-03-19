@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayoutt xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,63 +14,116 @@
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/logo"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@mipmap/logo"/>
         <cn.com.virtualbitcoin.view.editext.PowerfulEditText
             android:id="@+id/et_name"
+            style="@style/EditextStyle"
             android:elevation="1dp"
             android:layout_marginTop="30dp"
-            android:theme="@style/MyEditText"
             android:hint="请输入手机号"
-            android:paddingLeft="20dp"
             android:maxLines="11"
             android:minLines="1"
-            android:layout_height="45dp"
             android:background="@drawable/button_pw_bg"
-            android:textSize="16sp"
-            android:drawablePadding="10dp"
             android:drawableLeft="@mipmap/iv_phone"
-            app:leftDrawableWidth="15dp"
-            app:leftDrawableHeight="18dp"
-            android:textColorHint="@color/gay_text"
+            app:leftDrawableWidth="13dp"
+            app:leftDrawableHeight="16dp"
             android:layout_centerVertical="true"
-            android:layout_width="match_parent"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
-            android:textCursorDrawable="@null"
             app:funcType="canClear"
-            android:paddingRight="10dp"
-            app:theme="@style/MyEditText"
-            android:inputType="textPassword"
+            android:inputType="phone"
             />
+        <RelativeLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/button_pw_bg"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <ImageView
+                android:id="@+id/iv_code"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:layout_width="15dp"
+                android:layout_height="17dp"
+                android:src="@mipmap/iv_code"/>
+            <TextView
+                android:layout_marginRight="10dp"
+                android:id="@+id/bt_getCode"
+                android:gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="获取验证码"
+                android:textSize="12sp"
+                android:background="@null"
+                android:textColor="@color/colorPrimary"
+                />
+            <View
+                android:id="@+id/view"
+                android:background="@color/gay_text"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/bt_getCode"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+            <EditText
+                android:id="@+id/et_code"
+                android:maxLines="1"
+                android:maxLength="6"
+                android:hint="@string/register_hint"
+                android:inputType="number"
+                android:textSize="13sp"
+                android:textColorHint="@color/gay_text"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/view"
+                android:background="@null"
+                android:theme="@style/MyEditText"
+                android:layout_toRightOf="@id/iv_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </RelativeLayout>
         <cn.com.virtualbitcoin.view.editext.PowerfulEditText
             android:id="@+id/et_PassWord"
+            style="@style/EditextStyle"
             android:elevation="1dp"
             android:drawableLeft="@mipmap/iv_pd"
             android:layout_marginTop="20dp"
-            android:theme="@style/MyEditText"
-            android:hint="密码"
-            android:paddingLeft="20dp"
+            android:hint="请输入密码"
             android:maxLines="20"
             android:minLines="1"
-            android:layout_height="45dp"
             android:background="@drawable/button_pw_bg"
-            android:textSize="16sp"
-            android:drawablePadding="10dp"
             app:leftDrawableWidth="15dp"
             app:leftDrawableHeight="18dp"
-            android:textColorHint="@color/gay_text"
             android:layout_centerVertical="true"
-            android:layout_width="match_parent"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
-            android:textCursorDrawable="@null"
             app:funcType="canWatchPwd"
-            android:paddingRight="10dp"
             app:theme="@style/MyEditText"
+            android:inputType="textPassword"
+            />
+
+        <cn.com.virtualbitcoin.view.editext.PowerfulEditText
+            android:id="@+id/et_cofimPassWord"
+            style="@style/EditextStyle"
+            android:elevation="1dp"
+            android:drawableLeft="@mipmap/iv_pd"
+            android:layout_marginTop="20dp"
+            android:hint="请确认密码"
+            android:maxLines="20"
+            android:minLines="1"
+            android:background="@drawable/button_pw_bg"
+            app:leftDrawableWidth="15dp"
+            app:leftDrawableHeight="18dp"
+            android:layout_centerVertical="true"
+            app:funcType="canWatchPwd"
             android:inputType="textPassword"
             />
         <cn.com.virtualbitcoin.view.supertextview.SuperButton
@@ -80,38 +133,46 @@
             android:layout_marginLeft="40dp"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            app:sCornersRadius="10dp"
-            android:text="登陆"
+            app:sCornersRadius="15dp"
+            android:text="注册"
+            app:sUseSelector="true"
             android:textSize="18sp"
             android:textColor="@color/white"
-            app:sSolidColor="@color/colorPrimary"
-            app:sSelectorDisableColor="@color/colorPrimary"
+            app:sSelectorDisableColor="@color/colorAccentdefault"
+            app:sSelectorNormalColor="@color/colorPrimary"
             app:sSelectorPressedColor="@color/colorPrimaryDark"
             />
-        <RelativeLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/checkbox_login"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/login_check"
+                android:button="@null"
+                android:checked="true"
+                android:enabled="true" />
             <TextView
-                android:id="@+id/tv_forget"
-                android:textSize="15sp"
-                android:paddingBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
                 android:textColor="@color/black_666"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="忘记密码？"/>
+                android:text="我已阅读并同意"/>
             <TextView
-                android:id="@+id/tv_register"
-                android:paddingBottom="5dp"
-                android:layout_alignParentRight="true"
-                android:textSize="15sp"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/tv_forget"
+                android:textSize="12sp"
                 android:textColor="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="立即注册"/>
+                android:text="@string/deal"/>
 
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayoutt>
+</LinearLayout>
