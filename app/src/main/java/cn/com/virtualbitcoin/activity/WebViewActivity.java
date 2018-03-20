@@ -18,6 +18,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.base.BaseActivity;
+import cn.com.virtualbitcoin.common.Contacts;
 
 public class WebViewActivity extends BaseActivity {
 
@@ -40,9 +41,9 @@ public class WebViewActivity extends BaseActivity {
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         mWebView.setLayoutParams(lp);
         webContainer.addView(mWebView, 0);
-        String url = getIntent().getStringExtra("url");
-        String title = getIntent().getStringExtra("title");
-        if(!url.isEmpty()){
+        String url = getIntent().getStringExtra(Contacts.WEB_URL);
+        String title = getIntent().getStringExtra(Contacts.WEB_TITLE);
+        if(url!=null&&!url.isEmpty()){
             getDate(url);
             tvTitle.setText(title);
         }

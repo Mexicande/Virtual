@@ -47,7 +47,7 @@ public class Api {
     //未登录糖果列表
     public  static  String GET_SWEETLSIT=HOST+"candy/getCandy";
     //钱包列表
-    public  static  String GET_WALLTLSIT=HOST+"wallet/getWallet";
+    public  static  String GET_WALLETLSIT=HOST+"wallet/getWallet";
 
     //已登录
     public  static  String GET_USUERSWEETLSIT=HOST+"candy/getCandyUser";

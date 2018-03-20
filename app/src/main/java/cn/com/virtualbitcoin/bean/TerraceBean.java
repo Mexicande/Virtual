@@ -45,6 +45,33 @@ public class TerraceBean implements Serializable{
         private String admin_users_id;
         private String created_at;
         private String updated_at;
+        private String star;
+        private String trade;
+        private String transaction;
+
+        public String getStar() {
+            return star;
+        }
+
+        public void setStar(String star) {
+            this.star = star;
+        }
+
+        public String getTrade() {
+            return trade;
+        }
+
+        public void setTrade(String trade) {
+            this.trade = trade;
+        }
+
+        public String getTransaction() {
+            return transaction;
+        }
+
+        public void setTransaction(String transaction) {
+            this.transaction = transaction;
+        }
 
         public String getId() {
             return id;

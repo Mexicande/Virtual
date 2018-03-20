@@ -8,7 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -17,6 +24,10 @@ import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.adapter.AmountAdapter;
 import cn.com.virtualbitcoin.base.BaseActivity;
 import cn.com.virtualbitcoin.bean.AmountBean;
+import cn.com.virtualbitcoin.bean.TerraceBean;
+import cn.com.virtualbitcoin.common.Api;
+import cn.com.virtualbitcoin.intr.OnRequestDataListener;
+import cn.com.virtualbitcoin.utils.ToastUtils;
 import cn.com.virtualbitcoin.utils.Utils;
 
 public class PriceActivity extends BaseActivity {
@@ -29,8 +40,8 @@ public class PriceActivity extends BaseActivity {
     SmartRefreshLayout refreshLayout;
     private AmountAdapter mAmountAdapter;
     private View notDataView;
-    private ArrayList<AmountBean> mList = new ArrayList<>();
-
+    private ArrayList<AmountBean.CoinMarketBean> mList = new ArrayList<>();
+    private int page=1;
     public void goBack(View v) {
         finish();
     }
@@ -39,8 +50,9 @@ public class PriceActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initDate();
         initView();
+        refreshLayout.autoRefresh();
+
     }
 
     @Override
@@ -48,18 +60,50 @@ public class PriceActivity extends BaseActivity {
         return R.layout.activity_price;
     }
 
-    private void initDate() {
-        AmountBean amountBean = new AmountBean();
-        amountBean.setName("WTC");
-        amountBean.setWalton("walton");
-        amountBean.setPrice("￥98.43");
-        amountBean.setRange("-43.12%");
-        mList.add(amountBean);
-        mList.add(amountBean);
-        mList.add(amountBean);
-        mList.add(amountBean);
-        mList.add(amountBean);
-        mList.add(amountBean);
+
+    private void initDate(final int page) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("page", page);
+            jsonObject.put("number", 20);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Api.getReQuest(Api.GET_PRICE, this, jsonObject, new OnRequestDataListener() {
+            @Override
+            public void requestSuccess(int code, JSONObject data) {
+                if (page == 1) {
+                    mList.clear();
+                }
+                if (refreshLayout.isRefreshing()) {
+                    refreshLayout.finishRefresh();
+                }
+                if (refreshLayout.isLoading()) {
+                    refreshLayout.finishLoadmore();
+                }
+                Gson gson = new Gson();
+                AmountBean terraceBean = gson.fromJson(data.toString(), AmountBean.class);
+                if(!terraceBean.getCoinMarket().isEmpty()){
+                    mList.addAll(terraceBean.getCoinMarket());
+                    mAmountAdapter.setNewData(mList);
+                }
+            }
+
+            @Override
+            public void requestFailure(int code, String msg) {
+                ToastUtils.showShort(msg);
+                if(mList.size()==0){
+                    mAmountAdapter.setEmptyView(notDataView);
+                }
+                if (refreshLayout.isRefreshing()) {
+                    refreshLayout.finishRefresh();
+                }
+                if (refreshLayout.isLoading()) {
+                    refreshLayout.finishLoadmore();
+                }
+            }
+        });
+
     }
 
     private void initView() {
@@ -68,7 +112,19 @@ public class PriceActivity extends BaseActivity {
         amountRecycler.addItemDecoration(new DividerItemDecoration(Utils.getApp(), DividerItemDecoration.VERTICAL));
         amountRecycler.setAdapter(mAmountAdapter);
         notDataView = getLayoutInflater().inflate(R.layout.empty_view, (ViewGroup) amountRecycler.getParent(), false);
-
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                initDate(1);
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                initDate(page);
+                page++;
+            }
+        });
     }
 
     @Override

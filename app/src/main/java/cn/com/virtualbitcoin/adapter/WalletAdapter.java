@@ -21,7 +21,10 @@ public class WalletAdapter extends BaseQuickAdapter<Wallet.WalletBean,BaseViewHo
 
     @Override
     protected void convert(BaseViewHolder helper, Wallet.WalletBean item) {
-        helper.setText(R.id.name,item.getLogo())
-                .setText(R.id.num,"NO."+(helper.getAdapterPosition()+1));
+        helper.setText(R.id.name,item.getName())
+                .setText(R.id.num,"NO."+(helper.getAdapterPosition()+1))
+                .setText(R.id.website_url,item.getLink())
+                .setText(R.id.currency,item.getCurrency())
+                ;
     }
 }

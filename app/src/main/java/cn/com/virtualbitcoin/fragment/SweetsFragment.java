@@ -192,6 +192,7 @@ public class SweetsFragment extends Fragment {
             public void requestSuccess(int code, JSONObject data) {
                 Gson gson=new Gson();
                 SweetList list = gson.fromJson(data.toString(), SweetList.class);
+                mArrayList.addAll(list.getCandy());
                 sweetAdapter.setNewData(list.getCandy());
             }
 

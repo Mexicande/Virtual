@@ -90,7 +90,6 @@ public class RateChildActivity extends BaseActivity {
         if(str!=null&&!str.isEmpty()){
             String s=stName+" "+str;
             int i = s.indexOf(":");
-
             SpannableString spanString = new SpannableString(s);
 
 
@@ -106,6 +105,8 @@ public class RateChildActivity extends BaseActivity {
             spanString.setSpan(spanSize1, i+1, s.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
             tv.setText(spanString);
+        }else {
+            tv.setVisibility(View.GONE);
         }
 
     }

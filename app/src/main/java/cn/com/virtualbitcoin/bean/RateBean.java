@@ -48,7 +48,7 @@ public class RateBean implements Serializable {
         private String description;
         private String features;
         private String technical;
-        private String status;
+        private String grade_status;
         private String website;
         private String admin_users_id;
         private String created_at;
@@ -135,11 +135,11 @@ public class RateBean implements Serializable {
         }
 
         public String getStatus() {
-            return status;
+            return grade_status;
         }
 
         public void setStatus(String status) {
-            this.status = status;
+            this.grade_status = status;
         }
 
         public String getWebsite() {

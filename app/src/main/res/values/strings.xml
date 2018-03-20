@@ -34,7 +34,7 @@
     <string name="get_people">领取人数</string>
     <string name="click">点击领取</string>
     <string name="amount">涨跌幅</string>
-    <string name="price">涨跌幅</string>
+    <string name="price">价格</string>
     <string name="website">官网地址</string>
     <string name="login">登录</string>
     <string name="quit">退出登陆</string>

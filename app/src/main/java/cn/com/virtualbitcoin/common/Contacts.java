@@ -15,6 +15,16 @@ public class Contacts {
     public static String terminal= "1";
 
 
+
+
+    public static String WEB_TITLE= "title";
+    public static String WEB_URL= "url";
+
+
+
+
+
+
         /** 启动页显示时间 **/
         public static final int LAUCHER_DIPLAY_MILLIS = 2000;
         /** 倒计时时间 **/

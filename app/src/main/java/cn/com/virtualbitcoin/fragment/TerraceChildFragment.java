@@ -26,9 +26,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.activity.TerraceDescActivity;
+import cn.com.virtualbitcoin.activity.WebViewActivity;
 import cn.com.virtualbitcoin.adapter.TerraceAdapter;
 import cn.com.virtualbitcoin.bean.TerraceBean;
 import cn.com.virtualbitcoin.common.Api;
+import cn.com.virtualbitcoin.common.Contacts;
 import cn.com.virtualbitcoin.intr.OnRequestDataListener;
 import cn.com.virtualbitcoin.utils.ActivityUtils;
 import cn.com.virtualbitcoin.utils.ToastUtils;
@@ -68,9 +70,11 @@ public class TerraceChildFragment extends Fragment {
         mTerraceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(getActivity(), TerraceDescActivity.class);
-                intent.putExtra("terrace", mTerraceAdapter.getItem(position));
-                ActivityUtils.startActivity(TerraceDescActivity.class);
+                TerraceBean.MarketBean item = mTerraceAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra(Contacts.WEB_TITLE, item.getName());
+                intent.putExtra(Contacts.WEB_URL, item.getLink());
+                startActivity(intent);
             }
         });
 

@@ -20,6 +20,11 @@ public class TerraceAdapter extends BaseQuickAdapter<TerraceBean.MarketBean,Base
     @Override
     protected void convert(BaseViewHolder helper, TerraceBean.MarketBean item) {
         helper.setText(R.id.name,item.getName())
-                .setText(R.id.num,"NO."+(helper.getAdapterPosition()+1));
+                .setText(R.id.num,"NO."+(helper.getAdapterPosition()+1))
+                .setText(R.id.website_url,item.getLink())
+                .setRating(R.id.rating,Float.parseFloat(item.getStar()))
+                .setText(R.id.trade,item.getTrade())
+                .setText(R.id.transaction,item.getTransaction())
+                .setText(R.id.country,item.getCountry());
     }
 }
