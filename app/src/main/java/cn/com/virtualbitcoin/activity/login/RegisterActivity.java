@@ -19,6 +19,5 @@ public class RegisterActivity extends BaseActivity {
     }
     @Override
     protected void setToolbarTitle() {
-        tvTitle.setText(R.string.title_login);
     }
 }

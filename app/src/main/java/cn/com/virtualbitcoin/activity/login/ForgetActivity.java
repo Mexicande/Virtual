@@ -21,6 +21,5 @@ public class ForgetActivity extends BaseActivity {
 
     @Override
     protected void setToolbarTitle() {
-        tvTitle.setText(R.string.title_pw);
     }
 }

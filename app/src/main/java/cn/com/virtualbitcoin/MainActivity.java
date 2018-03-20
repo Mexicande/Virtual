@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import cn.com.virtualbitcoin.adapter.MyViewPagerAdapter;
 import cn.com.virtualbitcoin.adapter.NoTouchViewPager;
 import cn.com.virtualbitcoin.base.BaseActivity;
+import cn.com.virtualbitcoin.fragment.BlankFragment;
 import cn.com.virtualbitcoin.fragment.CenterFragment;
 import cn.com.virtualbitcoin.fragment.MainFragment;
 import cn.com.virtualbitcoin.fragment.TerraceFragment;

@@ -100,8 +100,6 @@ public class RateFragment extends Fragment {
         rateRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         rateRecycler.setAdapter(rateAdapter);
         rateRecycler.addItemDecoration(new DividerItemDecoration(Utils.getApp(), DividerItemDecoration.VERTICAL));
-        rateRecycler.setHasFixedSize(true);
-        rateRecycler.setNestedScrollingEnabled(false);
     }
 
     @Override

@@ -7,14 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.lucode.hackware.magicindicator.FragmentContainerHelper;
@@ -34,43 +32,29 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import cn.com.virtualbitcoin.R;
-import cn.com.virtualbitcoin.activity.GetSweetActivity;
-import cn.com.virtualbitcoin.activity.PriceActivity;
-import cn.com.virtualbitcoin.activity.RateActivity;
-import cn.com.virtualbitcoin.adapter.CollectionAdapter;
 import cn.com.virtualbitcoin.adapter.MyViewPagerAdapter;
 import cn.com.virtualbitcoin.adapter.NoTouchViewPager;
-import cn.com.virtualbitcoin.adapter.RateAdapter;
-import cn.com.virtualbitcoin.adapter.SweetAdapter;
-import cn.com.virtualbitcoin.bean.RateBean;
-import cn.com.virtualbitcoin.bean.SweetList;
-import cn.com.virtualbitcoin.utils.ActivityUtils;
-import cn.com.virtualbitcoin.utils.ToastUtils;
 import cn.com.virtualbitcoin.utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment {
+public class BlankFragment extends Fragment {
 
 
     @Bind(R.id.tv_title)
     TextView tvTitle;
+    @Bind(R.id.banner_fresco_demo_content)
     BGABanner bannerFrescoDemoContent;
-    @Bind(R.id.main_Recycyler)
-    RecyclerView mainRecycyler;
-    CollectionAdapter mCollectionAdapter;
+    @Bind(R.id.magic_indicator)
+    MagicIndicator magicIndicator;
     private List<String> mDataList = new ArrayList<>();
     private List<Fragment> mFragments = new ArrayList<Fragment>();
+    private FragmentContainerHelper mFragmentContainerHelper = new FragmentContainerHelper();
 
-    private SweetAdapter sweetAdapter;
-
-    ArrayList<SweetList> mSweetList = new ArrayList<>();
-
-    public MainFragment() {
+    public BlankFragment() {
         // Required empty public constructor
     }
 
@@ -79,72 +63,57 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_blank, container, false);
         ButterKnife.bind(this, view);
-        mainRecycyler.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        initBanner();
-        initDate();
-
-        return view;
-
-    }
-
-    private void initBanner() {
-        //mCollectionAdapter=new CollectionAdapter(null);
-        if(rateAdapter!=null){
-            rateAdapter.getData().clear();
-
-        }
-        sweetAdapter = new SweetAdapter(R.layout.sweet_item, mSweetList);
-        mainRecycyler.setAdapter(sweetAdapter);
-        sweetAdapter.addHeaderView(setHeader(),0);
-        sweetAdapter.addHeaderView(setFooter(),1);
-        sweetAdapter.addData(mSweetList);
-    }
-    private RateAdapter rateAdapter;
-    ArrayList<RateBean> rateBeans = new ArrayList<>();
-    private void initBanner2() {
-        sweetAdapter.getData().clear();
-        rateAdapter = new RateAdapter(rateBeans);
-        rateAdapter.addHeaderView(setHeader(),0);
-        rateAdapter.addHeaderView(setFooter(),1);
-        mainRecycyler.setAdapter(rateAdapter);
-        mainRecycyler.addItemDecoration(new DividerItemDecoration(Utils.getApp(), DividerItemDecoration.VERTICAL));
-        rateAdapter.addData(rateBeans);
-    }
-    private MagicIndicator magicIndicator;
-    private FragmentContainerHelper mFragmentContainerHelper = new FragmentContainerHelper();
-    private Fragment mFragment;
-    // private NoTouchViewPager viewPager;
-    private View setFooter() {
-        View view = getActivity().getLayoutInflater().inflate(R.layout.footer_item, null);
-        magicIndicator=view.findViewById(R.id.magic_indicator);
-       // viewPager=view.findViewById(R.id.view_pager);
         mFragmentContainerHelper.attachMagicIndicator(magicIndicator);
-
+        initBanner();
         initFragment();
         return view;
     }
-    private void initDate() {
-        SweetList list = new SweetList();
-        list.setCn_name("比特币");
-        list.setEn_name("GEC");
-        list.setPeople_num("已领取300人");
-        list.setWay_get(1);
-        mSweetList.add(list);
-        mSweetList.add(list);
-        mSweetList.add(list);
-        mSweetList.add(list);
-        mSweetList.add(list);
+    private void initBanner() {
+    /*    bannerFrescoDemoContent.setAdapter(new BGABanner.Adapter<ImageView, Banner_HotBean.AdvertisingBean>() {
+            @Override
+            public void fillBannerItem(BGABanner banner, ImageView itemView, Banner_HotBean.AdvertisingBean model, int position) {
 
+                Glide.with(getActivity())
+                        .load(model.getPictrue())
+                        .centerCrop()
+                        .apply(options)
+                        .into(itemView);
+
+
+            }
+        });
+        bannerFrescoDemoContent.setDelegate(new BGABanner.Delegate<ImageView, Banner_HotBean.AdvertisingBean>() {
+            @Override
+            public void onBannerItemClick(BGABanner banner, ImageView itemView, Banner_HotBean.AdvertisingBean model, int position) {
+
+                startActivity(new Intent(getContext(), HtmlActivity.class).putExtra("Advertising", hotBean.getAdvertising().get(position)));
+            }
+        });*/
     }
-    private View setHeader() {
-        View view = getActivity().getLayoutInflater().inflate(R.layout.header_item, null);
-        return view;
+
+    private void switchPages(int index) {
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment fragment;
+        for (int i = 0, j = mFragments.size(); i < j; i++) {
+            if (i == index) {
+                continue;
+            }
+            fragment = mFragments.get(i);
+            if (fragment.isAdded()) {
+                fragmentTransaction.hide(fragment);
+            }
+        }
+        fragment = mFragments.get(index);
+        if (fragment.isAdded()) {
+            fragmentTransaction.show(fragment);
+        } else {
+            fragmentTransaction.add(R.id.fragment, fragment);
+        }
+        fragmentTransaction.commitAllowingStateLoss();
     }
-
-
     private void initFragment() {
         mDataList.add(getResources().getString(R.string.sweets));
         mDataList.add(getResources().getString(R.string.rate));
@@ -152,13 +121,13 @@ public class MainFragment extends Fragment {
         mFragments.add(new SweetsFragment());
         mFragments.add(new RateFragment());
         MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getChildFragmentManager(), list);
-      //  viewPager.setAdapter(myViewPagerAdapter);
+        //  viewPager.setAdapter(myViewPagerAdapter);
         CommonNavigator commonNavigator = new CommonNavigator(getContext());
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
             public int getCount() {
-                return mDataList == null ? 0 : 2;
+                return mDataList == null ? 0 : mDataList.size();
             }
 
             @Override
@@ -174,13 +143,7 @@ public class MainFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         mFragmentContainerHelper.handlePageSelected(i);
-                        ToastUtils.showShort(i+"");
-                        if(i==1){
-                          initBanner2();
-                        }else {
-                            initBanner();
-                        }
-                       // switchPages(i);
+                        switchPages(i);
                     }
                 });
                 badgePagerTitleView.setInnerPagerTitleView(simplePagerTitleView);
@@ -216,12 +179,12 @@ public class MainFragment extends Fragment {
         mFragmentContainerHelper.attachMagicIndicator(magicIndicator);
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
 
     }
-
 
 }
