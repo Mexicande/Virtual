@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textColor="@color/black_color"
-                android:text="ICO date:"/>
+                android:text=""/>
 
             <TextView
                 android:layout_marginTop="10dp"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textColor="@color/black_color"
-                android:text="Product type:"/>
+                android:text=""/>
 
             <TextView
                 android:layout_marginTop="10dp"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textColor="@color/black_color"
-                android:text="Industry:"/>
+                android:text=""/>
 
 
             <TextView
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textColor="@color/black_color"
-                android:text="Description:"/>
+                android:text=""/>
 
             <TextView
                 android:layout_marginTop="10dp"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textColor="@color/black_color"
-                android:text="Features: "/>
+                android:text=""/>
 
             <TextView
                 android:layout_marginTop="10dp"
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textColor="@color/black_color"
-                android:text="Technical details: "/>
+                android:text=""/>
 
             <TextView
                 android:layout_marginTop="10dp"
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textColor="@color/black_color"
-                android:text="Website: "/>
+                android:text=""/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

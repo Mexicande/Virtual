@@ -50,7 +50,8 @@
         <activity
             android:name=".WebViewActivity"
             android:label="@string/title_activity_web_view" />
-        <activity android:name=".activity.WebViewActivity"></activity>
+        <activity android:name=".activity.WebViewActivity" />
+        <activity android:name=".activity.login.UpdatePwActivity"></activity>
     </application>
 
 </manifest>

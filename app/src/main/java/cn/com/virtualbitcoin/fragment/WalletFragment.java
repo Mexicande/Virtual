@@ -17,6 +17,7 @@ import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.adapter.TerraceAdapter;
 import cn.com.virtualbitcoin.adapter.WalletAdapter;
 import cn.com.virtualbitcoin.bean.TerraceBean;
+import cn.com.virtualbitcoin.bean.Wallet;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,7 +32,7 @@ public class WalletFragment extends Fragment {
     RecyclerView walletRecycler;
 
     private WalletAdapter mWalletAdapter;
-    private ArrayList<TerraceBean> mList = new ArrayList<>();
+    private ArrayList<Wallet.WalletBean> mList = new ArrayList<>();
 
 
     public WalletFragment() {
@@ -57,17 +58,7 @@ public class WalletFragment extends Fragment {
     }
 
     private void initDate() {
-        TerraceBean terraceBean = new TerraceBean();
-        terraceBean.setName("BitMEX");
-        TerraceBean terraceBean1 = new TerraceBean();
-        terraceBean1.setName("OKEX");
-        mList.add(terraceBean);
-        mList.add(terraceBean1);
-        mList.add(terraceBean);
-        mList.add(terraceBean1);
-        mList.add(terraceBean1);
-        mList.add(terraceBean);
-        mList.add(terraceBean);
+
     }
 
     @Override

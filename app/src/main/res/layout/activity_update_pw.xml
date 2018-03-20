@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="cn.com.virtualbitcoin.activity.login.ForgetActivity">
+    android:orientation="vertical"
+    tools:context="cn.com.virtualbitcoin.activity.login.UpdatePwActivity">
     <include layout="@layout/item_login"/>
     <LinearLayout
         android:orientation="vertical"
@@ -28,63 +28,23 @@
             app:funcType="canClear"
             android:inputType="phone"
             />
-        <RelativeLayout
+        <cn.com.virtualbitcoin.view.editext.PowerfulEditText
+            android:id="@+id/et_oldPW"
+            style="@style/EditextStyle"
+            android:elevation="1dp"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:hint="旧密码"
+            android:maxLines="11"
+            android:minLines="1"
             android:background="@drawable/button_pw_bg"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <ImageView
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:id="@+id/iv_code"
-                android:layout_marginLeft="15dp"
-                android:layout_centerVertical="true"
-                android:layout_width="15dp"
-                android:layout_height="17dp"
-                android:src="@mipmap/iv_code"/>
-            <TextView
-                android:layout_marginRight="10dp"
-                android:id="@+id/bt_getCode"
-                android:gravity="center"
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="获取验证码"
-                android:textSize="12sp"
-                android:background="@null"
-                android:textColor="@color/colorPrimary"
-                />
-            <View
-                android:id="@+id/view"
-                android:background="@color/gay_text"
-                android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/bt_getCode"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"/>
-            <EditText
-                android:id="@+id/et_code"
-                android:maxLines="1"
-                android:maxLength="6"
-                android:hint="@string/register_hint"
-                android:inputType="number"
-                android:textSize="13sp"
-                android:textColorHint="@color/gay_text"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/view"
-                android:background="@null"
-                android:theme="@style/MyEditText"
-                android:layout_toRightOf="@id/iv_code"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-        </RelativeLayout>
+            android:drawableLeft="@mipmap/iv_phone"
+            app:leftDrawableWidth="13dp"
+            app:leftDrawableHeight="16dp"
+            android:layout_centerVertical="true"
+            app:funcType="canWatchPwd"
+            android:inputType="textPassword"
+            />
+
         <cn.com.virtualbitcoin.view.editext.PowerfulEditText
             android:id="@+id/et_PassWord"
             style="@style/EditextStyle"

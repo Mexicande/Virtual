@@ -34,14 +34,21 @@ public class Api {
     public  static  String SEED_FORGET_MESS=HOST+"sms/getPwdCode";
     //忘记密码
     public  static  String GET_FORGET=HOST+"person/testCode";
+    //忘记密码
+    public  static  String GET_UPDATAPW=HOST+"person/setPassword";
     //领取糖果
     public  static  String GET_SWEET=HOST+"candy/addCandy";
     //未登录评级列表
     public  static  String GET_GRADELSIT=HOST+"grade/getGrade";
     //已登录评级列表
+    public  static  String GET_MARKET=HOST+"market/getMarket";
+
     public  static  String GET_USERGRADELSIT=HOST+"grade/getGradeUser";
     //未登录糖果列表
     public  static  String GET_SWEETLSIT=HOST+"candy/getCandy";
+    //钱包列表
+    public  static  String GET_WALLTLSIT=HOST+"wallet/getWallet";
+
     //已登录
     public  static  String GET_USUERSWEETLSIT=HOST+"candy/getCandyUser";
     //当前价格

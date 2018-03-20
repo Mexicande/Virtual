@@ -81,14 +81,14 @@ public class RateChildActivity extends BaseActivity {
         setTextColor(getResources().getString(R.string.rate_industry),tvIndustry,item.getIndustry());
         setTextColor(getResources().getString(R.string.rate_desc),tvDesc,item.getDescription());
         setTextColor(getResources().getString(R.string.rate_feat),feature,item.getFeatures());
-        setTextColor(getResources().getString(R.string.rate_tech),tvIco,item.getTechnical());
+        setTextColor(getResources().getString(R.string.rate_tech),tvTechnical,item.getTechnical());
         setTextColor(getResources().getString(R.string.rate_Website),tvWebsite,item.getWebsite());
 
     }
 
     private void setTextColor(String stName,TextView tv,String str) {
         if(str!=null&&!str.isEmpty()){
-            String s=stName+str;
+            String s=stName+" "+str;
             int i = s.indexOf(":");
 
             SpannableString spanString = new SpannableString(s);

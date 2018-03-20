@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.gson.Gson;
 
 import net.lucode.hackware.magicindicator.FragmentContainerHelper;
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -29,6 +30,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +43,12 @@ import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.activity.GetSweetActivity;
 import cn.com.virtualbitcoin.activity.PriceActivity;
 import cn.com.virtualbitcoin.activity.RateActivity;
+import cn.com.virtualbitcoin.activity.WebViewActivity;
 import cn.com.virtualbitcoin.adapter.MyViewPagerAdapter;
 import cn.com.virtualbitcoin.adapter.NoTouchViewPager;
+import cn.com.virtualbitcoin.bean.Banner;
+import cn.com.virtualbitcoin.common.Api;
+import cn.com.virtualbitcoin.intr.OnRequestDataListener;
 import cn.com.virtualbitcoin.utils.ActivityUtils;
 import cn.com.virtualbitcoin.utils.Utils;
 
@@ -82,26 +89,38 @@ public class MainFragment extends Fragment {
     }
 
     private void initBanner() {
-    /*    bannerFrescoDemoContent.setAdapter(new BGABanner.Adapter<ImageView, Banner_HotBean.AdvertisingBean>() {
+        bannerFrescoDemoContent.setAdapter(new BGABanner.Adapter<ImageView, Banner.BannerBean>() {
             @Override
-            public void fillBannerItem(BGABanner banner, ImageView itemView, Banner_HotBean.AdvertisingBean model, int position) {
-
+            public void fillBannerItem(BGABanner banner, ImageView itemView, Banner.BannerBean model, int position) {
                 Glide.with(getActivity())
-                        .load(model.getPictrue())
+                        .load(model.getLogo())
                         .centerCrop()
-                        .apply(options)
                         .into(itemView);
+            }
+        });
+        bannerFrescoDemoContent.setDelegate(new BGABanner.Delegate<ImageView, Banner.BannerBean>() {
+            @Override
+            public void onBannerItemClick(BGABanner banner, ImageView itemView, Banner.BannerBean model, int position) {
 
+                Intent intent=new Intent(getActivity(),WebViewActivity.class);
+                intent.putExtra("title",model.getName());
+                intent.putExtra("url",model.getLink());
+                startActivity(intent);
+            }
+        });
+        Api.getReQuest(Api.GET_BANNER, getActivity(), new JSONObject(), new OnRequestDataListener() {
+            @Override
+            public void requestSuccess(int code, JSONObject data) {
+                Gson gson=new Gson();
+                Banner banner = gson.fromJson(data.toString(), Banner.class);
+                bannerFrescoDemoContent.setData(banner.getBanner(),null);
+            }
+            @Override
+            public void requestFailure(int code, String msg) {
 
             }
         });
-        bannerFrescoDemoContent.setDelegate(new BGABanner.Delegate<ImageView, Banner_HotBean.AdvertisingBean>() {
-            @Override
-            public void onBannerItemClick(BGABanner banner, ImageView itemView, Banner_HotBean.AdvertisingBean model, int position) {
 
-                startActivity(new Intent(getContext(), HtmlActivity.class).putExtra("Advertising", hotBean.getAdvertising().get(position)));
-            }
-        });*/
     }
 
 

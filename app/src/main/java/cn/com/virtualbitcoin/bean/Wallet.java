@@ -4,45 +4,44 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by apple on 2018/3/18.
+ * Created by apple on 2018/3/20.
  */
 
-public class TerraceBean implements Serializable{
+public class Wallet implements Serializable{
 
-    private List<MarketBean> market;
+    private List<WalletBean> wallet;
 
-    public List<MarketBean> getMarket() {
-        return market;
+    public List<WalletBean> getWallet() {
+        return wallet;
+    }
+    public void setWallet(List<WalletBean> wallet) {
+        this.wallet = wallet;
     }
 
-    public void setMarket(List<MarketBean> market) {
-        this.market = market;
-    }
-
-    public static class MarketBean implements Serializable{
+    public static class WalletBean implements Serializable{
         /**
          * id : 2
-         * name : BitMEX
-         * link : https://www.bitmex.com/
-         * logo : http://or2eh71ll.bkt.clouddn.com/152119407399830.jpg?e=1521197673&token=Npg7Sanmf4z8uv3mvwwffjOvoCMYN8Ezm4T8pDrC:edUG8VwqH10ir-GFKx44zTUxLGQ=
-         * introduction : 最先进的比特币衍生品交易所,对于比特币类产品提供高达100倍的杠杆，同时也提供针对其它数字货币产品的高杠杆。
-         * status : 0
-         * country : 塞舌尔共和国
-         * business : 2
+         * name : imtoken
+         * currency : ETH.EOS.GETX.DGD.MKR.REP.GNT.1ST.ANT.MYST.OWN.BAT.SNT.PAY.BNT.BTM.CREDO.LRC.MANA.DPY.STAR.LAB
+         * logo : http://or2eh71ll.bkt.clouddn.com/152119586176877.jpg?e=1521199461&token=Npg7Sanmf4z8uv3mvwwffjOvoCMYN8Ezm4T8pDrC:NQ9TLbvQuHGj9VgAO_84curX4AI=
+         * status : 1
+         * link :
+         * index : 0
          * admin_users_id : 1
-         * created_at : 2018-03-16 17:54:33
-         * updated_at : 2018-03-16 17:54:33
+         * introduction : 横跨中国，新加坡两地，基于区块链技术为所有人打造安全好用的「imToken数字资产钱包」
+         * created_at : 2018-03-16 18:24:21
+         * updated_at : 2018-03-20 11:20:37
          */
 
         private String id;
         private String name;
-        private String link;
+        private String currency;
         private String logo;
-        private String introduction;
         private String status;
-        private String country;
-        private String business;
+        private String link;
+        private String index;
         private String admin_users_id;
+        private String introduction;
         private String created_at;
         private String updated_at;
 
@@ -62,12 +61,12 @@ public class TerraceBean implements Serializable{
             this.name = name;
         }
 
-        public String getLink() {
-            return link;
+        public String getCurrency() {
+            return currency;
         }
 
-        public void setLink(String link) {
-            this.link = link;
+        public void setCurrency(String currency) {
+            this.currency = currency;
         }
 
         public String getLogo() {
@@ -78,14 +77,6 @@ public class TerraceBean implements Serializable{
             this.logo = logo;
         }
 
-        public String getIntroduction() {
-            return introduction;
-        }
-
-        public void setIntroduction(String introduction) {
-            this.introduction = introduction;
-        }
-
         public String getStatus() {
             return status;
         }
@@ -94,20 +85,20 @@ public class TerraceBean implements Serializable{
             this.status = status;
         }
 
-        public String getCountry() {
-            return country;
+        public String getLink() {
+            return link;
         }
 
-        public void setCountry(String country) {
-            this.country = country;
+        public void setLink(String link) {
+            this.link = link;
         }
 
-        public String getBusiness() {
-            return business;
+        public String getIndex() {
+            return index;
         }
 
-        public void setBusiness(String business) {
-            this.business = business;
+        public void setIndex(String index) {
+            this.index = index;
         }
 
         public String getAdmin_users_id() {
@@ -116,6 +107,14 @@ public class TerraceBean implements Serializable{
 
         public void setAdmin_users_id(String admin_users_id) {
             this.admin_users_id = admin_users_id;
+        }
+
+        public String getIntroduction() {
+            return introduction;
+        }
+
+        public void setIntroduction(String introduction) {
+            this.introduction = introduction;
         }
 
         public String getCreated_at() {

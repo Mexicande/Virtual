@@ -34,7 +34,6 @@ public class QuestionPost {
                         if(response.body()!=null){
                             try {
                                 JSONObject jsonObject=new JSONObject(response.body());
-
                                 int error_code = jsonObject.getInt("error_code");
                                 if(error_code==0){
                                     JSONObject data = jsonObject.getJSONObject("data");

@@ -12,13 +12,13 @@ import cn.com.virtualbitcoin.bean.TerraceBean;
  * Created by apple on 2018/3/18.
  */
 
-public class TerraceAdapter extends BaseQuickAdapter<TerraceBean,BaseViewHolder> {
-    public TerraceAdapter( List<TerraceBean> data) {
+public class TerraceAdapter extends BaseQuickAdapter<TerraceBean.MarketBean,BaseViewHolder> {
+    public TerraceAdapter( List<TerraceBean.MarketBean> data) {
         super(R.layout.terrace_item, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, TerraceBean item) {
+    protected void convert(BaseViewHolder helper, TerraceBean.MarketBean item) {
         helper.setText(R.id.name,item.getName())
                 .setText(R.id.num,"NO."+(helper.getAdapterPosition()+1));
     }

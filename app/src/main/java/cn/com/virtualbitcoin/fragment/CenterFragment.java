@@ -23,6 +23,7 @@ import cn.com.virtualbitcoin.activity.UserSweetActivity;
 import cn.com.virtualbitcoin.activity.login.ForgetActivity;
 import cn.com.virtualbitcoin.activity.login.LoginActivity;
 import cn.com.virtualbitcoin.activity.login.RegisterActivity;
+import cn.com.virtualbitcoin.activity.login.UpdatePwActivity;
 import cn.com.virtualbitcoin.common.Api;
 import cn.com.virtualbitcoin.common.Contacts;
 import cn.com.virtualbitcoin.intr.OnRequestDataListener;
@@ -30,6 +31,7 @@ import cn.com.virtualbitcoin.utils.ActivityUtils;
 import cn.com.virtualbitcoin.utils.AppUtils;
 import cn.com.virtualbitcoin.utils.SPUtils;
 import cn.com.virtualbitcoin.utils.ToastUtils;
+import cn.com.virtualbitcoin.utils.Utils;
 import cn.com.virtualbitcoin.view.supertextview.SuperButton;
 
 /**
@@ -111,7 +113,7 @@ public class CenterFragment extends Fragment {
                     ActivityUtils.startActivity(LoginActivity.class);
                     ToastUtils.showShort("未登录");
                 } else {
-                    Intent intentPw = new Intent(getActivity(), ForgetActivity.class);
+                    Intent intentPw = new Intent(getActivity(), UpdatePwActivity.class);
                     intentPw.putExtra("from", "user");
                     startActivity(intentPw);
                 }
@@ -135,7 +137,9 @@ public class CenterFragment extends Fragment {
                 break;
             case R.id.super_quit:
                 SPUtils.getInstance().clear();
-                ActivityUtils.startActivity(LoginActivity.class);
+                Intent intent=new Intent(getActivity(),LoginActivity.class);
+                intent.putExtra("from","user");
+                startActivity(intent);
                 break;
             default:
                 break;

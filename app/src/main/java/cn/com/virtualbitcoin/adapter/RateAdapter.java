@@ -26,7 +26,7 @@ public class RateAdapter extends BaseQuickAdapter<RateBean.GradeBean,BaseViewHol
     protected void convert(BaseViewHolder helper, RateBean.GradeBean item) {
         helper.setText(R.id.EN_name,item.getName())
                 .setText(R.id.tv_rate,item.getGade())
-                .setRating(R.id.rating,item.getGade()!=null? (float) 5.0 :Float.parseFloat(item.getGade()))
+                .setRating(R.id.rating,item.getGade()==null? (float) 5.0 :Float.parseFloat(item.getGade()))
                 .setText(R.id.bt_collection,("0").equals(item.getStatus())?"收藏":"已收藏")
                 .addOnClickListener(R.id.bt_collection);
     }

@@ -1,12 +1,13 @@
 package cn.com.virtualbitcoin.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by apple on 2018/3/17.
  */
 
-public class SweetList {
+public class SweetList implements Serializable{
 
     private List<CandyBean> candy;
 
@@ -17,8 +18,7 @@ public class SweetList {
     public void setCandy(List<CandyBean> candy) {
         this.candy = candy;
     }
-
-    public static class CandyBean {
+    public static class CandyBean implements Serializable{
         /**
          * id : 1
          * name : 中国物链网
@@ -39,7 +39,7 @@ public class SweetList {
         private String link;
         private String time;
         private String number;
-        private String status;
+        private String candy_status;
         private String admin_users_id;
         private String introduction;
         private String give_rule;
@@ -88,11 +88,11 @@ public class SweetList {
         }
 
         public String getStatus() {
-            return status;
+            return candy_status;
         }
 
         public void setStatus(String status) {
-            this.status = status;
+            this.candy_status = status;
         }
 
         public String getAdmin_users_id() {

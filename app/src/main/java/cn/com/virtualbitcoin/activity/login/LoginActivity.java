@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.text.Editable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -115,7 +116,13 @@ public class LoginActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_close:
-                finish();
+                String from = getIntent().getStringExtra("from");
+                if("user".equals(from)){
+                    ActivityUtils.startActivity(MainActivity.class);
+                    finish();
+                }else {
+                    finish();
+                }
                 break;
             case R.id.super_Button:
                 setLogin();
@@ -182,7 +189,19 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void setStatusBar() {
         StatusBarUtil.setColor(this, getResources().getColor(R.color.white));
+    }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            String from = getIntent().getStringExtra("from");
+            if("user".equals(from)){
+                ActivityUtils.startActivity(MainActivity.class);
+                finish();
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
