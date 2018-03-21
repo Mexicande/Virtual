@@ -37,7 +37,6 @@ public class RegisterActivity extends BaseActivity {
 
     @Bind(R.id.tv_title)
     TextView tvTitle;
-    private static final int RESUIT_CODE = 100;
     @Bind(R.id.et_name)
     PowerfulEditText etName;
     @Bind(R.id.bt_getCode)
@@ -167,7 +166,7 @@ public class RegisterActivity extends BaseActivity {
                 }else {
                     Intent intent=new Intent();
                     intent.putExtra(Contacts.phone,phone);
-                    setResult(RESUIT_CODE,intent);
+                    setResult(Contacts.RESULT_CODE,intent);
                     finish();
                 }
 

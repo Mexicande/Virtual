@@ -38,6 +38,8 @@ public class Api {
     public  static  String GET_UPDATAPW=HOST+"person/setPassword";
     //领取糖果
     public  static  String GET_SWEET=HOST+"candy/addCandy";
+    //收藏
+    public  static  String GET_ADDCOLLECTION=HOST+"grade/addGrade";
     //未登录评级列表
     public  static  String GET_GRADELSIT=HOST+"grade/getGrade";
     //已登录评级列表
@@ -60,7 +62,7 @@ public class Api {
     //my收藏
     public  static  String GET_MY_COLLECTION=HOST+"grade/myGrade";
     //版本检测
-    public  static  String GET_UPDATE="http://test.api.anwenqianbao.com/v1/version/version";
+        public  static  String GET_UPDATE=HOST+"version/version";
     //
     public static void getReQuest(String url,final Context context, JSONObject s, final OnRequestDataListener listener) {
         QuestionPost.newExcuteJsonPost(url, context, s,listener);

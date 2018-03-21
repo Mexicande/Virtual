@@ -15,6 +15,11 @@ public class Contacts {
     public static String terminal= "1";
 
 
+    public static  final  int RESULT_CODE=100;
+    public static  final  int REQUESTION_CODE=1000;
+    public static int ERROR_CODE= 2;
+
+
 
 
     public static String WEB_TITLE= "title";

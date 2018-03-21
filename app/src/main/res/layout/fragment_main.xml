@@ -1,39 +1,59 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/bg"
-    android:fillViewport="true"
-    tools:context="cn.com.virtualbitcoin.fragment.MainFragment">
-  <LinearLayout
-      android:orientation="vertical"
+    android:orientation="vertical"
+    >
+  <include layout="@layout/toolbar_item"/>
+  <android.support.design.widget.CoordinatorLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-    <include layout="@layout/toolbar_item"/>
-    <cn.bingoogolapple.bgabanner.BGABanner
-        android:id="@+id/banner_fresco_demo_content"
-        android:layout_width="wrap_content"
-        android:layout_height="160dp"
-        style="@style/BannerDefaultStyle"
-        app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
-        app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
-        app:banner_pointAutoPlayAble="true"
-        app:banner_pointContainerBackground="@android:color/transparent"
-        app:banner_transitionEffect="defaultEffect"
-        >
-    </cn.bingoogolapple.bgabanner.BGABanner>
-    <include layout="@layout/head_layout"/>
-    <net.lucode.hackware.magicindicator.MagicIndicator
-        android:id="@+id/magic_indicator"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
+      android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="51dp"
-        android:layout_gravity="center_horizontal" />
-      <cn.com.virtualbitcoin.adapter.NoTouchViewPager
-          android:id="@+id/view_pager"
+        android:layout_height="wrap_content"
+        android:background="@color/bg"
+        android:fitsSystemWindows="true">
+      <android.support.design.widget.CollapsingToolbarLayout
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
-  </LinearLayout>
-</ScrollView>
+          android:layout_height="match_parent"
+          app:expandedTitleMarginStart="48dp"
+          app:layout_scrollFlags="scroll|exitUntilCollapsed">
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+          <cn.bingoogolapple.bgabanner.BGABanner
+              android:id="@+id/banner_fresco_demo_content"
+              android:layout_width="wrap_content"
+              android:layout_height="160dp"
+              style="@style/BannerDefaultStyle"
+              app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
+              app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+              app:banner_pointAutoPlayAble="true"
+              app:banner_pointContainerBackground="@android:color/transparent"
+              app:banner_transitionEffect="defaultEffect"
+              >
+          </cn.bingoogolapple.bgabanner.BGABanner>
+          <include layout="@layout/head_layout"/>
+        </LinearLayout>
+      </android.support.design.widget.CollapsingToolbarLayout>
+
+      <net.lucode.hackware.magicindicator.MagicIndicator
+          android:id="@+id/magic_indicator"
+          android:background="@color/white"
+          android:layout_width="match_parent"
+          android:layout_height="51dp"
+          android:layout_gravity="center_horizontal" />
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+  </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

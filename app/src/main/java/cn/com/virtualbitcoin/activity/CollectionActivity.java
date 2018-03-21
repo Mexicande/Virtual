@@ -1,20 +1,36 @@
 package cn.com.virtualbitcoin.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Collection;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import cn.com.virtualbitcoin.R;
+import cn.com.virtualbitcoin.activity.login.LoginActivity;
 import cn.com.virtualbitcoin.adapter.CollectionAdapter;
 import cn.com.virtualbitcoin.base.BaseActivity;
 import cn.com.virtualbitcoin.bean.CollectionBean;
+import cn.com.virtualbitcoin.bean.RateBean;
+import cn.com.virtualbitcoin.common.Api;
+import cn.com.virtualbitcoin.common.Contacts;
+import cn.com.virtualbitcoin.intr.OnRequestDataListener;
+import cn.com.virtualbitcoin.utils.ActivityUtils;
+import cn.com.virtualbitcoin.utils.SPUtils;
+import cn.com.virtualbitcoin.utils.ToastUtils;
 
 public class CollectionActivity extends BaseActivity {
 
@@ -22,12 +38,14 @@ public class CollectionActivity extends BaseActivity {
     TextView tvTitle;
     @Bind(R.id.coll_recycler)
     RecyclerView collRecycler;
+    @Bind(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
+    private View notDataView;
+    private String mToken;
 
     private CollectionAdapter mCollectionAdapter;
 
-    private ArrayList<CollectionBean>mArrays=new ArrayList<>();
-
-
+    private ArrayList<RateBean.GradeBean> mArrays = new ArrayList<>();
 
     public void goBack(View v) {
         finish();
@@ -41,37 +59,74 @@ public class CollectionActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mToken = SPUtils.getInstance().getString(Contacts.token);
         initDate();
         initView();
     }
 
 
-
     private void initView() {
 
-        mCollectionAdapter=new CollectionAdapter(mArrays);
+        mCollectionAdapter = new CollectionAdapter(mArrays);
         collRecycler.setLayoutManager(new LinearLayoutManager(this));
         collRecycler.setAdapter(mCollectionAdapter);
+        notDataView = getLayoutInflater().inflate(R.layout.empty_view, (ViewGroup) collRecycler.getParent(), false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                initDate();
+            }
+        });
     }
 
     private void initDate() {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("token", mToken);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Api.getReQuest(Api.GET_MY_COLLECTION, this, object, new OnRequestDataListener() {
+            @Override
+            public void requestSuccess(int code, JSONObject data) {
+                Gson gson = new Gson();
+                RateBean rateBean = gson.fromJson(data.toString(), RateBean.class);
+                if(rateBean.getGrade()==null){
+                    mCollectionAdapter.setEmptyView(notDataView);
+                }else {
+                    mArrays.addAll(rateBean.getGrade());
+                    mCollectionAdapter.setNewData(rateBean.getGrade());
+                }
 
-        CollectionBean collectionBean=new CollectionBean();
-            collectionBean.setEn_name("GEC");
-            collectionBean.setStar("4.0");
-            collectionBean.setDatetime("2018/3/15");
-        CollectionBean collectionBean1=new CollectionBean();
-            collectionBean1.setEn_name("ETH");
-            collectionBean1.setStar("3.0");
-            collectionBean1.setDatetime("2018/3/18");
+            }
 
-            mArrays.add(collectionBean);
-            mArrays.add(collectionBean1);
-            mArrays.add(collectionBean);
-            mArrays.add(collectionBean1);
-            mArrays.add(collectionBean1);
+            @Override
+            public void requestFailure(int code, String msg) {
+                ToastUtils.showShort(msg);
+                mCollectionAdapter.setEmptyView(notDataView);
+                if(code==Contacts.ERROR_CODE){
+                    SPUtils.getInstance().clear();
+                   /* Intent intent=new Intent(CollectionActivity.this,LoginActivity.class);
+                    startActivityForResult(intent,Contacts.REQUESTION_CODE);*/
+                    ActivityUtils.startActivity(LoginActivity.class);
+                    finish();
+                }
+
+            }
+        });
+
     }
 
+ /*   @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==Contacts.REQUESTION_CODE){
+            if(resultCode==Contacts.RESULT_CODE){
+                initDate();
+            }
+        }
+
+    }*/
 
     @Override
     protected void setToolbarTitle() {

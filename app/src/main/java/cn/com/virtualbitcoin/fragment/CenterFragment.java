@@ -18,6 +18,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.com.virtualbitcoin.R;
+import cn.com.virtualbitcoin.activity.AboutActivity;
 import cn.com.virtualbitcoin.activity.CollectionActivity;
 import cn.com.virtualbitcoin.activity.UserSweetActivity;
 import cn.com.virtualbitcoin.activity.login.ForgetActivity;
@@ -33,6 +34,7 @@ import cn.com.virtualbitcoin.utils.SPUtils;
 import cn.com.virtualbitcoin.utils.ToastUtils;
 import cn.com.virtualbitcoin.utils.Utils;
 import cn.com.virtualbitcoin.view.supertextview.SuperButton;
+import cn.com.virtualbitcoin.view.update.AppUpdateUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -119,10 +121,15 @@ public class CenterFragment extends Fragment {
                 }
                 break;
             case R.id.join_qq:
+                AddWechatFragment wechatFragment= AddWechatFragment.newInstance("加QQ群","官网QQ群:517235563");
+                wechatFragment.show(getFragmentManager(),"wechatFragment");
                 break;
             case R.id.join_wechat:
+                AddWechatFragment adialogFragment= AddWechatFragment.newInstance("加微信群","官网微信群:TangGuoDaBaoBao");
+                adialogFragment.show(getFragmentManager(),"adialogFragment");
                 break;
             case R.id.about:
+                ActivityUtils.startActivity(AboutActivity.class);
                 break;
             case R.id.update:
                 checkVersion();
@@ -152,7 +159,9 @@ public class CenterFragment extends Fragment {
      */
 
     private void checkVersion() {
-        JSONObject jsonObject=new JSONObject();
+
+            final int versionCode = AppUpdateUtils.getVersionCode(getActivity());
+        final JSONObject jsonObject=new JSONObject();
         int appVersionCode = AppUtils.getAppVersionCode();
         try {
             jsonObject.put("versioncode",appVersionCode);
@@ -163,9 +172,18 @@ public class CenterFragment extends Fragment {
             @Override
             public void requestSuccess(int code, JSONObject data) {
 
-
+                try {
+                    JSONObject version = data.getJSONObject("version");
+                    int versioncode = Integer.parseInt(version.getString("versioncode"));
+                    if(versionCode>=versioncode){
+                        ToastUtils.showShort("已是最新版本了！");
+                    }else {
+                        AppUtils.updateDiy(versionCode,getActivity());
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-
             @Override
             public void requestFailure(int code, String msg) {
                 ToastUtils.showShort(msg);

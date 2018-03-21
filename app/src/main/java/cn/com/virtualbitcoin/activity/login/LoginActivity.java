@@ -47,8 +47,6 @@ public class LoginActivity extends BaseActivity {
     TextView tvForget;
     @Bind(R.id.tv_register)
     TextView tvRegister;
-    private static  final  int RESULT_CODE=100;
-    private static  final  int REQUESTION_CODE=1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,11 +127,11 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.tv_forget:
                 Intent forgetIntent=new Intent(this,ForgetActivity.class);
-                startActivityForResult(forgetIntent,REQUESTION_CODE);
+                startActivityForResult(forgetIntent,Contacts.REQUESTION_CODE);
                 break;
             case R.id.tv_register:
                 Intent registerIntent=new Intent(this,RegisterActivity.class);
-                startActivityForResult(registerIntent,REQUESTION_CODE);
+                startActivityForResult(registerIntent,Contacts.REQUESTION_CODE);
                 break;
             default:
                 break;
@@ -165,7 +163,7 @@ public class LoginActivity extends BaseActivity {
                     String phone = data.getString("phone");
                     SPUtils.getInstance().put(Contacts.token,token);
                     SPUtils.getInstance().put(Contacts.phone,phone);
-                    setResult(RESULT_CODE);
+                    setResult(Contacts.RESULT_CODE);
                     finish();
                 } catch (JSONException e) {
 
@@ -207,8 +205,8 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUESTION_CODE){
-            if(resultCode==RESULT_CODE){
+        if(requestCode==Contacts.REQUESTION_CODE){
+            if(resultCode==Contacts.RESULT_CODE){
                 String stringExtra = data.getStringExtra(Contacts.phone);
                     if(stringExtra!=null){
                         etName.setText(stringExtra);

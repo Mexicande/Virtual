@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="cn.com.virtualbitcoin">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".MyApplication"
@@ -19,16 +23,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:name=".activity.SpalshActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name=".activity.GetSweetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.RateActivity"
@@ -42,16 +62,35 @@
         <activity
             android:name=".activity.TerraceDescActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.CollectionActivity" />
-        <activity android:name=".activity.UserSweetActivity" />
-        <activity android:name=".activity.login.LoginActivity" />
-        <activity android:name=".activity.login.RegisterActivity" />
-        <activity android:name=".activity.login.ForgetActivity" />
         <activity
-            android:name=".WebViewActivity"
-            android:label="@string/title_activity_web_view" />
-        <activity android:name=".activity.WebViewActivity" />
-        <activity android:name=".activity.login.UpdatePwActivity"></activity>
+            android:name=".activity.CollectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UserSweetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.login.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.login.ForgetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:label="@string/title_activity_web_view"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".view.update.DownloadService" />
+
+        <activity
+            android:name=".activity.login.UpdatePwActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WelcomeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.AboutActivity"></activity>
     </application>
 
 </manifest>

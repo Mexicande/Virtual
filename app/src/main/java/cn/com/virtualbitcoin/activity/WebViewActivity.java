@@ -20,6 +20,9 @@ import cn.com.virtualbitcoin.R;
 import cn.com.virtualbitcoin.base.BaseActivity;
 import cn.com.virtualbitcoin.common.Contacts;
 
+/**
+ * @author apple
+ */
 public class WebViewActivity extends BaseActivity {
 
     @Bind(R.id.tv_title)
@@ -37,6 +40,7 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mWebView = new WebView(this);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         mWebView.setLayoutParams(lp);

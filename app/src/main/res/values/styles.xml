@@ -79,6 +79,15 @@
         <item name="android:minHeight">16dp</item>
         <item name="android:maxHeight">16dp</item>
     </style>
+    <style name="AppTheme.Splash">
+
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@mipmap/loding</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 
     <style name="BannerDefaultStyle">
         <!-- 自定义属性在styles.xml中不需要命名空间,直接用属性名就可以了 -->
@@ -111,6 +120,33 @@
         <item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
+    </style>
+    <style name="Base_AlertDialog" parent="Base.Theme.AppCompat.Light.Dialog">
+
+        <!--不设置在6.0以上会出现，宽度不充满屏幕的情况-->
+        <item name="windowMinWidthMinor">90%</item>
+
+        <!-- 取消标题栏，如果在代码中settitle的话会无效 -->
+        <item name="android:windowNoTitle">true</item>
+
+        <!-- 标题的和Message的文字颜色 -->
+        <!--<item name="android:textColorPrimary">@color/black</item>-->
+
+        <!-- 修改顶部标题背景颜色，具体颜色自己定，可以是图片 -->
+        <!--<item name="android:topDark">@color/app_main_color_deep</item>-->
+
+        <!--<item name="android:background">@color/white</item>-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+
+        <!-- 在某些系统上面设置背景颜色之后出现奇怪的背景，处这里设置背景为透明，为了隐藏边框 -->
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+        <!--<item name="android:windowFrame">@null</item>-->
+
+        <!-- 进入和退出动画，左进右出（系统自带） -->
+        <!--<item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>-->
+
+        <!-- 按钮字体颜色,全部一起改，单个改需要在Java代码中修改 -->
+        <!-- <item name="colorAccent">@color/app_main_color</item>-->
     </style>
 
 </resources>

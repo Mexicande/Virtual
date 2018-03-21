@@ -64,8 +64,8 @@ public class MainFragment extends Fragment {
     BGABanner bannerFrescoDemoContent;
     @Bind(R.id.magic_indicator)
     MagicIndicator magicIndicator;
-    @Bind(R.id.view_pager)
-    NoTouchViewPager viewPager;
+    @Bind(R.id.viewPager)
+    ViewPager viewPager;
     private List<String> mDataList = new ArrayList<>();
 
 
@@ -152,6 +152,7 @@ public class MainFragment extends Fragment {
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        mFragmentContainerHelper.handlePageSelected(i);
                         viewPager.setCurrentItem(i);
                     }
                 });

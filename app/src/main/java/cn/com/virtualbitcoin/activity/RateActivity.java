@@ -83,11 +83,8 @@ public class RateActivity extends BaseActivity {
                     Intent intent=new Intent(RateActivity.this, LoginActivity.class);
                     startActivityForResult(intent,REQUESTION_CODE);
                 }else {
-                    if ("0".equals(item.getStatus())) {
-                        viewByPosition.setText("已收藏");
-                    } else {
-                        ToastUtils.showShort("已经收藏过了~~~~");
-                    }
+                    addCollection(position,item,viewByPosition);
+
                 }
 
             }
@@ -143,11 +140,63 @@ public class RateActivity extends BaseActivity {
                 if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
+                if(code==Contacts.ERROR_CODE){
+                    SPUtils.getInstance().clear();
+                   /* Intent intent=new Intent(CollectionActivity.this,LoginActivity.class);
+                    startActivityForResult(intent,Contacts.REQUESTION_CODE);*/
+                    ActivityUtils.startActivity(LoginActivity.class);
+                    finish();
+                }
             }
         });
 
     }
+    /**
+     * 添加、取消收藏
+     *
+     * @param item  状态
+     */
+    private void addCollection(final int position, final RateBean.GradeBean item, final SuperButton viewByPosition) {
 
+
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("token", mToken);
+            object.put("grade_id", item.getId());
+            if ("0".equals(item.getStatus())) {
+                object.put("status", 1);
+            } else {
+                object.put("status", 2);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Api.getReQuest(Api.GET_ADDCOLLECTION, this, object, new OnRequestDataListener() {
+            @Override
+            public void requestSuccess(int code, JSONObject data) {
+                if("0".equals(item.getStatus())){
+                    viewByPosition.setText("已收藏");
+                    ToastUtils.showShort("收藏成功");
+                    item.setStatus("1");
+                }else {
+                    viewByPosition.setText("收藏");
+                    ToastUtils.showShort("取消收藏");
+                    item.setStatus("0");
+
+                }
+                mRateBeans.set(position, item);
+                rateAdapter.notifyItemChanged(position);
+
+            }
+
+            @Override
+            public void requestFailure(int code, String msg) {
+                ToastUtils.showShort(msg);
+            }
+        });
+
+    }
     private void initView() {
         rateAdapter = new RateAdapter(mRateBeans);
         rateRecycler.setLayoutManager(new LinearLayoutManager(this));

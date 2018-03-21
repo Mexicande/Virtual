@@ -14,6 +14,10 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +27,6 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.com.virtualbitcoin.R;
-import cn.com.virtualbitcoin.activity.RateActivity;
 import cn.com.virtualbitcoin.activity.child.RateChildActivity;
 import cn.com.virtualbitcoin.activity.login.LoginActivity;
 import cn.com.virtualbitcoin.adapter.RateAdapter;
@@ -47,11 +50,13 @@ public class RateFragment extends Fragment {
     TextView Rtext;
     @Bind(R.id.rate_Recycler)
     RecyclerView rateRecycler;
+    @Bind(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
     private RateAdapter rateAdapter;
-    ArrayList<RateBean.GradeBean> rateBeans = new ArrayList<>();
+    ArrayList<RateBean.GradeBean> rateBeansList = new ArrayList<>();
     private String mToken;
-    private static final int REQUESTION_CODE=2000;
-    private static final int RESULT_CODE=100;
+    private int page=1;
+
     public RateFragment() {
         // Required empty public constructor
     }
@@ -63,11 +68,11 @@ public class RateFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_rate, container, false);
         ButterKnife.bind(this, view);
-        mToken= SPUtils.getInstance().getString(Contacts.token);
-        if(mToken.isEmpty()){
-            initDate(Api.GET_GRADELSIT);
-        }else {
-            initDate(Api.GET_USERGRADELSIT);
+        mToken = SPUtils.getInstance().getString(Contacts.token);
+        if (mToken.isEmpty()) {
+            initDate(1,Api.GET_GRADELSIT);
+        } else {
+            initDate(1,Api.GET_USERGRADELSIT);
         }
         initView();
         setListener();
@@ -77,24 +82,42 @@ public class RateFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mToken= SPUtils.getInstance().getString(Contacts.token);
+        mToken = SPUtils.getInstance().getString(Contacts.token);
     }
 
     private void setListener() {
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                if(mToken.isEmpty()){
+                    initDate(1,Api.GET_GRADELSIT);
+                }else {
+                    initDate(1,Api.GET_USERGRADELSIT);
+                }
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                if(mToken.isEmpty()){
+                    initDate(1,Api.GET_GRADELSIT);
+                }else {
+                    initDate(1,Api.GET_USERGRADELSIT);
+                }
+                page++;
+            }
+        });
+
         rateAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 SuperButton viewByPosition = (SuperButton) rateAdapter.getViewByPosition(rateRecycler, position, R.id.bt_collection);
                 RateBean.GradeBean item = rateAdapter.getItem(position);
-                if(mToken.isEmpty()){
-                    Intent intent=new Intent(getActivity(), LoginActivity.class);
-                    startActivityForResult(intent,REQUESTION_CODE);
-                }else {
-                    if ("0".equals(item.getStatus())) {
-                        viewByPosition.setText("已收藏");
-                    } else {
-                        ToastUtils.showShort("已经收藏过了~~~~");
-                    }
+                if (mToken.isEmpty()) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivityForResult(intent, Contacts.REQUESTION_CODE);
+                } else {
+                    addCollection(position,item,viewByPosition);
                 }
             }
         });
@@ -102,47 +125,116 @@ public class RateFragment extends Fragment {
         rateAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent=new Intent(getActivity(),RateChildActivity.class);
-                intent.putExtra("Grade",rateAdapter.getItem(position));
+                Intent intent = new Intent(getActivity(), RateChildActivity.class);
+                intent.putExtra("Grade", rateAdapter.getItem(position));
                 startActivity(intent);
             }
         });
     }
 
+    /**
+     * 添加、取消收藏
+     *
+     * @param item  状态
+     */
+    private void addCollection(final int position, final RateBean.GradeBean item, final SuperButton viewByPosition) {
 
-    private void initDate(String url) {
 
-        JSONObject object=new JSONObject();
+
+        JSONObject object = new JSONObject();
         try {
-            object.put("token",mToken);
-            object.put("page",1);
-            object.put("number",10);
+            object.put("token", mToken);
+            object.put("grade_id", item.getId());
+            if ("0".equals(item.getStatus())) {
+                object.put("status", 1);
+            } else {
+                object.put("status", 2);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Api.getReQuest(Api.GET_ADDCOLLECTION, getActivity(), object, new OnRequestDataListener() {
+            @Override
+            public void requestSuccess(int code, JSONObject data) {
+                if("0".equals(item.getStatus())){
+                    viewByPosition.setText("已收藏");
+                    ToastUtils.showShort("收藏成功");
+                    item.setStatus("1");
+                }else {
+                    viewByPosition.setText("收藏");
+                    ToastUtils.showShort("取消收藏");
+                    item.setStatus("0");
+
+                }
+                rateBeansList.set(position, item);
+                rateAdapter.notifyItemChanged(position);
+
+            }
+
+            @Override
+            public void requestFailure(int code, String msg) {
+                ToastUtils.showShort(msg);
+                if(code==Contacts.ERROR_CODE){
+                    SPUtils.getInstance().clear();
+                    Intent intent=new Intent(getActivity(),LoginActivity.class);
+                    startActivityForResult(intent,Contacts.REQUESTION_CODE);
+                    /*ActivityUtils.startActivity(LoginActivity.class);
+                    finish();*/
+                }
+            }
+        });
+
+    }
+
+
+    private void initDate(final int page, String url) {
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("token", mToken);
+            object.put("page", page);
+            object.put("number", 10);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Api.getReQuest(url, getActivity(), object, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
-                Gson gson=new Gson();
+                if (page == 1) {
+                    rateBeansList.clear();
+                }
+                if (refreshLayout.isRefreshing()) {
+                    refreshLayout.finishRefresh();
+                }
+                if (refreshLayout.isLoading()) {
+                    refreshLayout.finishLoadmore();
+                }
+                Gson gson = new Gson();
                 RateBean rateBean = gson.fromJson(data.toString(), RateBean.class);
-                rateAdapter.setNewData(rateBean.getGrade());
+                if(!rateBean.getGrade().isEmpty()){
+                    rateBeansList.addAll(rateBean.getGrade());
+                    rateAdapter.setNewData(rateBeansList);
+                }
             }
 
             @Override
             public void requestFailure(int code, String msg) {
-
+                if(code==Contacts.ERROR_CODE){
+                    SPUtils.getInstance().clear();
+                    Intent intent=new Intent(getActivity(),LoginActivity.class);
+                    startActivityForResult(intent,Contacts.REQUESTION_CODE);
+                }
             }
         });
 
     }
 
     private void initView() {
-        rateAdapter = new RateAdapter(rateBeans);
+        rateAdapter = new RateAdapter(rateBeansList);
         rateRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         rateRecycler.setAdapter(rateAdapter);
         rateRecycler.addItemDecoration(new DividerItemDecoration(Utils.getApp(), DividerItemDecoration.VERTICAL));
-        rateRecycler.setHasFixedSize(true);
-        rateRecycler.setNestedScrollingEnabled(false);
+
     }
 
     @Override
@@ -154,11 +246,11 @@ public class RateFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUESTION_CODE){
-            switch (resultCode){
-                case RESULT_CODE:
-                    mToken= SPUtils.getInstance().getString(Contacts.token);
-                    initDate(Api.GET_USERGRADELSIT);
+        if (requestCode == Contacts.REQUESTION_CODE) {
+            switch (resultCode) {
+                case Contacts.RESULT_CODE:
+                    mToken = SPUtils.getInstance().getString(Contacts.token);
+                    initDate(1,Api.GET_USERGRADELSIT);
                     break;
                 default:
                     break;

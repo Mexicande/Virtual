@@ -40,7 +40,6 @@ public class ForgetActivity extends BaseActivity {
     @Bind(R.id.bt_getCode)
     TextView btGetCode;
     private CaptchaTimeCount captchaTimeCount;
-    private static final int RESUIT_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +141,7 @@ public class ForgetActivity extends BaseActivity {
                 ToastUtils.showShort("修改成功");
                 Intent intent=new Intent();
                 intent.putExtra(Contacts.phone,phone);
-                setResult(RESUIT_CODE,intent);
+                setResult(Contacts.RESULT_CODE,intent);
                 finish();
             }
 

@@ -14,10 +14,10 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,10 +34,8 @@ import cn.com.virtualbitcoin.bean.SweetList;
 import cn.com.virtualbitcoin.common.Api;
 import cn.com.virtualbitcoin.common.Contacts;
 import cn.com.virtualbitcoin.intr.OnRequestDataListener;
-import cn.com.virtualbitcoin.utils.ActivityUtils;
 import cn.com.virtualbitcoin.utils.SPUtils;
 import cn.com.virtualbitcoin.utils.ToastUtils;
-import cn.com.virtualbitcoin.utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,11 +48,15 @@ public class SweetsFragment extends Fragment {
     TextView Rtext;
     @Bind(R.id.recycler)
     RecyclerView recycler;
+    @Bind(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
 
     private SweetAdapter sweetAdapter;
     private String mToken;
-    private static final int REQUESTION_CODE=2000;
-    private static final int RESULT_CODE=100;
+    private static final int REQUESTION_CODE = 2000;
+    private static final int RESULT_CODE = 100;
+    private int page=1;
+
     public SweetsFragment() {
         // Required empty public constructor
     }
@@ -65,13 +67,13 @@ public class SweetsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sweets, container, false);
         ButterKnife.bind(this, view);
-        mToken= SPUtils.getInstance().getString(Contacts.token);
-        if(mToken.isEmpty()){
+        mToken = SPUtils.getInstance().getString(Contacts.token);
+        if (mToken.isEmpty()) {
             //未登录
-            getDate(Api.GET_SWEETLSIT);
-        }else {
+            getDate(1,Api.GET_SWEETLSIT);
+        } else {
             //已登录
-            getDate(Api.GET_USUERSWEETLSIT);
+            getDate(1,Api.GET_USUERSWEETLSIT);
         }
         initRecycler();
         return view;
@@ -80,23 +82,38 @@ public class SweetsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mToken= SPUtils.getInstance().getString(Contacts.token);
+        mToken = SPUtils.getInstance().getString(Contacts.token);
     }
 
     private void initRecycler() {
 
         sweetAdapter = new SweetAdapter(R.layout.sweet_item, mArrayList);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        /*recycler.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false){
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });*/
         recycler.setAdapter(sweetAdapter);
-        recycler.setHasFixedSize(true);
-        recycler.setNestedScrollingEnabled(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
 
+                if(mToken.isEmpty()){
+                    getDate(1,Api.GET_SWEETLSIT);
+                }else {
+                    getDate(1,Api.GET_USUERSWEETLSIT);
+
+                }
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                if(mToken.isEmpty()){
+                    getDate(page,Api.GET_SWEETLSIT);
+                }else {
+                    getDate(page,Api.GET_USUERSWEETLSIT);
+
+                }
+                page++;
+            }
+        });
 
         sweetAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -115,23 +132,23 @@ public class SweetsFragment extends Fragment {
                         viewByPosition.setVisibility(View.GONE);
                         break;
                     case R.id.tv_sign:
-                        mToken= SPUtils.getInstance().getString(Contacts.token);
-                        if(mToken.isEmpty()){
-                            Intent intent=new Intent(getActivity(), LoginActivity.class);
-                            startActivityForResult(intent,REQUESTION_CODE);
-                        }else {
-                            if(Integer.parseInt(item.getStatus())==0){
-                                toGetSweet(item,position);
-                            }else {
+                        mToken = SPUtils.getInstance().getString(Contacts.token);
+                        if (mToken.isEmpty()) {
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            startActivityForResult(intent, REQUESTION_CODE);
+                        } else {
+                            if (Integer.parseInt(item.getStatus()) == 0) {
+                                toGetSweet(item, position);
+                            } else {
                                 ToastUtils.showShort("已领取");
                             }
                         }
                         break;
                     case R.id.tv_toGet:
-                        Intent intent=new Intent(getActivity(),WebViewActivity.class);
-                        intent.putExtra("url",item.getLink());
-                        intent.putExtra("title",item.getName());
-                        if(item.getLink()!=null&&!item.getLink().isEmpty()){
+                        Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                        intent.putExtra(Contacts.WEB_URL, item.getLink());
+                        intent.putExtra(Contacts.WEB_TITLE, item.getName());
+                        if (item.getLink() != null && !item.getLink().isEmpty()) {
                             startActivity(intent);
                         }
                         break;
@@ -147,14 +164,14 @@ public class SweetsFragment extends Fragment {
     /**
      * 标记 sign
      */
-    private void toGetSweet(final  SweetList.CandyBean item, final int position) {
+    private void toGetSweet(final SweetList.CandyBean item, final int position) {
 
 
-       JSONObject object=new JSONObject();
+        JSONObject object = new JSONObject();
         try {
-            object.put("token",mToken);
-            object.put("candy_id",item.getId());
-            object.put("status",1);
+            object.put("token", mToken);
+            object.put("candy_id", item.getId());
+            object.put("status", 1);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -164,7 +181,7 @@ public class SweetsFragment extends Fragment {
             @Override
             public void requestSuccess(int code, JSONObject data) {
                 item.setStatus("1");
-                mArrayList.set(position,item);
+                mArrayList.set(position, item);
                 sweetAdapter.notifyItemChanged(position);
 
             }
@@ -172,33 +189,59 @@ public class SweetsFragment extends Fragment {
             @Override
             public void requestFailure(int code, String msg) {
                 ToastUtils.showShort(msg);
+                if(code==Contacts.ERROR_CODE){
+                    SPUtils.getInstance().clear();
+                    Intent intent=new Intent(getActivity(),LoginActivity.class);
+                    startActivityForResult(intent,Contacts.REQUESTION_CODE);
+                    /*ActivityUtils.startActivity(LoginActivity.class);
+                    finish();*/
+                }
             }
         });
 
     }
 
-    private void getDate(String url) {
+    private void getDate(final int page, String url) {
 
-        JSONObject object=new JSONObject();
+        JSONObject object = new JSONObject();
         try {
-            object.put("token",mToken);
-            object.put("page",1);
-            object.put("number",10);
+            object.put("token", mToken);
+            object.put("page", page);
+            object.put("number", 10);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Api.getReQuest(url, getActivity(), object, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
-                Gson gson=new Gson();
+                if (page == 1) {
+                    mArrayList.clear();
+                }
+                if (refreshLayout.isRefreshing()) {
+                    refreshLayout.finishRefresh();
+                }
+                if (refreshLayout.isLoading()) {
+                    refreshLayout.finishLoadmore();
+                }
+
+                Gson gson = new Gson();
                 SweetList list = gson.fromJson(data.toString(), SweetList.class);
-                mArrayList.addAll(list.getCandy());
-                sweetAdapter.setNewData(list.getCandy());
+                if(!list.getCandy().isEmpty()){
+                    mArrayList.addAll(list.getCandy());
+                    sweetAdapter.setNewData(mArrayList);
+                }
             }
 
             @Override
             public void requestFailure(int code, String msg) {
-
+                ToastUtils.showShort(msg);
+                if(code==Contacts.ERROR_CODE){
+                    SPUtils.getInstance().clear();
+                    Intent intent=new Intent(getActivity(),LoginActivity.class);
+                    startActivityForResult(intent,Contacts.REQUESTION_CODE);
+                    /*ActivityUtils.startActivity(LoginActivity.class);
+                    finish();*/
+                }
             }
         });
 
@@ -208,11 +251,11 @@ public class SweetsFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUESTION_CODE){
-            switch (resultCode){
+        if (requestCode == REQUESTION_CODE) {
+            switch (resultCode) {
                 case RESULT_CODE:
-                    mToken= SPUtils.getInstance().getString(Contacts.token);
-                    getDate(Api.GET_USUERSWEETLSIT);
+                    mToken = SPUtils.getInstance().getString(Contacts.token);
+                    getDate(1,Api.GET_USUERSWEETLSIT);
                     break;
                 default:
                     break;
