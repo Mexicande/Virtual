@@ -15,6 +15,7 @@ import cn.com.virtualbitcoin.adapter.NoTouchViewPager;
 import cn.com.virtualbitcoin.base.BaseActivity;
 import cn.com.virtualbitcoin.fragment.BlankFragment;
 import cn.com.virtualbitcoin.fragment.CenterFragment;
+import cn.com.virtualbitcoin.fragment.CoordinaFragment;
 import cn.com.virtualbitcoin.fragment.MainFragment;
 import cn.com.virtualbitcoin.fragment.TerraceFragment;
 import cn.com.virtualbitcoin.utils.StatusBarUtil;
@@ -49,7 +50,7 @@ public class MainActivity extends BaseActivity {
                 .build();
         List<Fragment> list = new ArrayList<>();
         list.add(new TerraceFragment());
-        list.add(new MainFragment());
+        list.add(new CoordinaFragment());
         list.add(new CenterFragment());
 
         viewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(), list));

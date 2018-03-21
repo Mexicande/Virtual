@@ -114,6 +114,16 @@ public class SweetsFragment extends Fragment {
         arrayList.add(list);
         arrayList.add(list);
         arrayList.add(list);
+        arrayList.add(list);
+        arrayList.add(list);
+        arrayList.add(list);
+        arrayList.add(list);
+        arrayList.add(list);
+        arrayList.add(list);
+        arrayList.add(list);
+        arrayList.add(list);
+        arrayList.add(list);
+        arrayList.add(list);
 
         RateBean rateBean = new RateBean();
         rateBean.setCn_name("比特币");

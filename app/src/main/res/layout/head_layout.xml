@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:layout_marginTop="7dp"
+    android:paddingBottom="10dp"
     android:layout_height="100dp">
     <RelativeLayout
         android:id="@+id/way_sweet"

@@ -1,10 +1,9 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg"
-    android:fillViewport="true"
     tools:context="cn.com.virtualbitcoin.fragment.MainFragment">
     <LinearLayout
         android:orientation="vertical"
@@ -38,4 +37,4 @@
             >
         </FrameLayout>
     </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

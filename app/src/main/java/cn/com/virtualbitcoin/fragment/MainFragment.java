@@ -15,7 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import net.lucode.hackware.magicindicator.FragmentContainerHelper;
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -93,25 +96,45 @@ public class MainFragment extends Fragment {
     private void initBanner() {
         //mCollectionAdapter=new CollectionAdapter(null);
         if(rateAdapter!=null){
-            rateAdapter.getData().clear();
 
         }
         sweetAdapter = new SweetAdapter(R.layout.sweet_item, mSweetList);
         mainRecycyler.setAdapter(sweetAdapter);
         sweetAdapter.addHeaderView(setHeader(),0);
         sweetAdapter.addHeaderView(setFooter(),1);
-        sweetAdapter.addData(mSweetList);
+        sweetAdapter.setNewData(mSweetList);
+
+        sweetAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                RelativeLayout viewByPosition = (RelativeLayout) sweetAdapter.getViewByPosition(mainRecycyler, position, R.id.layout2);
+                RelativeLayout viewByPosition2 = (RelativeLayout) sweetAdapter.getViewByPosition(mainRecycyler, position, R.id.layout1);
+                switch (view.getId()) {
+                    case R.id.layout1:
+                        viewByPosition2.setVisibility(View.GONE);
+                        viewByPosition.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.layout:
+                        viewByPosition2.setVisibility(View.VISIBLE);
+                        viewByPosition.setVisibility(View.GONE);
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        });
+
     }
     private RateAdapter rateAdapter;
     ArrayList<RateBean> rateBeans = new ArrayList<>();
     private void initBanner2() {
-        sweetAdapter.getData().clear();
         rateAdapter = new RateAdapter(rateBeans);
         rateAdapter.addHeaderView(setHeader(),0);
         rateAdapter.addHeaderView(setFooter(),1);
         mainRecycyler.setAdapter(rateAdapter);
+        rateAdapter.setNewData(rateBeans);
         mainRecycyler.addItemDecoration(new DividerItemDecoration(Utils.getApp(), DividerItemDecoration.VERTICAL));
-        rateAdapter.addData(rateBeans);
     }
     private MagicIndicator magicIndicator;
     private FragmentContainerHelper mFragmentContainerHelper = new FragmentContainerHelper();
@@ -137,6 +160,19 @@ public class MainFragment extends Fragment {
         mSweetList.add(list);
         mSweetList.add(list);
         mSweetList.add(list);
+
+
+        RateBean rateBean = new RateBean();
+        rateBean.setCn_name("比特币");
+        rateBean.setEn_name("GEC");
+        rateBean.setCollection(1);
+        rateBean.setRate_num("4.5");
+        rateBeans.add(rateBean);
+        rateBeans.add(rateBean);
+        rateBeans.add(rateBean);
+        rateBeans.add(rateBean);
+        rateBeans.add(rateBean);
+
 
     }
     private View setHeader() {
