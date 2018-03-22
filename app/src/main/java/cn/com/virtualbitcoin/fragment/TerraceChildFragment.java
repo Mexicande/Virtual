@@ -61,7 +61,7 @@ public class TerraceChildFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_terrace_child, container, false);
         ButterKnife.bind(this, view);
         initView();
-        refreshLayout.autoRefresh();
+        initDate(1);
         setListener();
         return view;
     }

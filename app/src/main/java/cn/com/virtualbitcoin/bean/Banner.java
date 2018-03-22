@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Banner implements Serializable{
 
+
     private List<BannerBean> banner;
 
     public List<BannerBean> getBanner() {
@@ -22,13 +23,14 @@ public class Banner implements Serializable{
     public static class BannerBean implements Serializable{
         /**
          * id : 3
-         * name : 2
-         * link :
-         * logo :
+         * name : 平台指南
+         * link : http://www.shoujiweidai.com/wenbin/
+         * logo : http://or2eh71ll.bkt.clouddn.com/152169104958910.png?e=1521694649&token=Npg7Sanmf4z8uv3mvwwffjOvoCMYN8Ezm4T8pDrC:TQlCZ-ZHV0HCELSWVdtUL5P1274=
          * admin_users_id : 1
-         * status : 0
+         * type : 1
+         * status : 1
          * created_at : 1970-01-02 00:00:00
-         * updated_at : 1970-01-02 00:00:00
+         * updated_at : 2018-03-22 12:04:37
          */
 
         private String id;
@@ -36,6 +38,7 @@ public class Banner implements Serializable{
         private String link;
         private String logo;
         private String admin_users_id;
+        private String type;
         private String status;
         private String created_at;
         private String updated_at;
@@ -78,6 +81,14 @@ public class Banner implements Serializable{
 
         public void setAdmin_users_id(String admin_users_id) {
             this.admin_users_id = admin_users_id;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
         }
 
         public String getStatus() {

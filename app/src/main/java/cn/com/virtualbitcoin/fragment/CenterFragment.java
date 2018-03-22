@@ -121,11 +121,11 @@ public class CenterFragment extends Fragment {
                 }
                 break;
             case R.id.join_qq:
-                AddWechatFragment wechatFragment= AddWechatFragment.newInstance("加QQ群","官网QQ群:517235563");
+                AddWechatFragment wechatFragment= AddWechatFragment.newInstance(2,"加QQ群","官网QQ群:517235563");
                 wechatFragment.show(getFragmentManager(),"wechatFragment");
                 break;
             case R.id.join_wechat:
-                AddWechatFragment adialogFragment= AddWechatFragment.newInstance("加微信群","官网微信群:TangGuoDaBaoBao");
+                AddWechatFragment adialogFragment= AddWechatFragment.newInstance(0,"加微信群","官网微信群:TangGuoDaBaoBao");
                 adialogFragment.show(getFragmentManager(),"adialogFragment");
                 break;
             case R.id.about:

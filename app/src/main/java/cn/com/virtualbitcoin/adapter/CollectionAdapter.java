@@ -29,7 +29,6 @@ public class CollectionAdapter extends BaseQuickAdapter<RateBean.GradeBean,BaseV
                 .setText(R.id.tv_star,item.getGade())
         .setRating(R.id.rating, item.getGade()==null? (float) 5.0 :Float.parseFloat(item.getGade()))
         .setText(R.id.date,item.getUpdated_at());
-
         Glide.with(mContext).load(item.getLogo())
                 .error(R.mipmap.logo)
                 .transform(new GlideCircleTransform(mContext))

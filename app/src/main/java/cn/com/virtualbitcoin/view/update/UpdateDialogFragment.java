@@ -106,7 +106,7 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
             }
         });
 
-        final Window window = getDialog().getWindow();
+      /*  final Window window = getDialog().getWindow();
         if(window!=null){
             window.getDecorView().setPadding(0, 0, 0, 0);
             WindowManager.LayoutParams wlp = window.getAttributes();
@@ -114,13 +114,13 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
             wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
             wlp.height = WindowManager.LayoutParams.WRAP_CONTENT;
             window.setAttributes(wlp);
-        }
-      /*  Window dialogWindow = getDialog().getWindow();
+        }*/
+        Window dialogWindow = getDialog().getWindow();
         dialogWindow.setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        lp.height = (int) (displayMetrics.heightPixels * 0.8f);
-        dialogWindow.setAttributes(lp);*/
+        lp.height = (int) (displayMetrics.heightPixels * 0.7f);
+        dialogWindow.setAttributes(lp);
     }
 
     @Nullable

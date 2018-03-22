@@ -1,5 +1,6 @@
 package cn.com.virtualbitcoin.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -61,6 +63,29 @@ public class UserSweetActivity extends BaseActivity {
         mToken = SPUtils.getInstance().getString(Contacts.token);
         initView();
         initDate();
+        setListener();
+    }
+
+    private void setListener() {
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                initDate();
+            }
+        });
+        mUserSweetAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                SweetList.CandyBean item = (SweetList.CandyBean) adapter.getItem(position);
+                Intent intent = new Intent(UserSweetActivity.this, WebViewActivity.class);
+                intent.putExtra("url", item.getLink());
+                intent.putExtra("title", item.getName());
+                if (item.getLink() != null && !item.getLink().isEmpty()) {
+                    startActivity(intent);
+                }
+            }
+        });
+
 
     }
 
@@ -105,12 +130,7 @@ public class UserSweetActivity extends BaseActivity {
         userSweetRecycler.setLayoutManager(new LinearLayoutManager(this));
         userSweetRecycler.setAdapter(mUserSweetAdapter);
         notDataView = getLayoutInflater().inflate(R.layout.empty_view, (ViewGroup) userSweetRecycler.getParent(), false);
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                initDate();
-            }
-        });
+
     }
 
     @Override

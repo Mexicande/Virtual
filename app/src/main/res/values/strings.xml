@@ -11,7 +11,8 @@
     <string name="title_pw">忘记密码</string>
     <string name="title_about">关于我们</string>
     <string name="about_desc">&#160;&#160;&#160;&#160;&#160;&#160;区块糖果是为对数字货币感兴趣的币友提供更便捷、准确的信息服务，提供中外有关区块链项目的数据分析和数据挖掘服务。我们拥有全球大部分数字货币、交易平台、交易对的数据资源，具有初步过滤虚假项目的能力，并且提供行情分析等多维度的信息服务。未来主要的发展方向是打造国内最专业的数字货币行业大数据平台。</string>
-
+    <string name="sign">标记</string>
+    <string name="signed">已领取</string>
 
     <string name="update_pw">修改密码</string>
 
@@ -39,7 +40,7 @@
     <string name="click">点击领取</string>
     <string name="amount">涨跌幅</string>
     <string name="price">价格</string>
-    <string name="website">官网地址</string>
+    <string name="website">官网地址: </string>
     <string name="login">登录</string>
     <string name="quit">退出登陆</string>
     <string name="deal">《区块糖果用户登录注册协议》</string>

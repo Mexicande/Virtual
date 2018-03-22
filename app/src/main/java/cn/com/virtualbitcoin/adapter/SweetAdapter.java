@@ -1,5 +1,6 @@
 package cn.com.virtualbitcoin.adapter;
 
+import android.opengl.Visibility;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -30,7 +31,10 @@ public class SweetAdapter extends BaseQuickAdapter<SweetList.CandyBean,BaseViewH
                 .setText(R.id.put_rule,item.getPut_rule())
                 .setText(R.id.people_num,"已领取"+item.getNumber()+"人")
                 .setText(R.id.people_num1,"已领取"+item.getNumber()+"人")
-                .setText(R.id.tv_sign,Integer.parseInt(item.getStatus())==0?"未领取":"已领取")
+                .setText(R.id.tv_sign,Integer.parseInt(item.getStatus())==0?
+                        mContext.getResources().getString(R.string.sign):mContext.getResources().getString(R.string.signed))
+                .setVisible(R.id.layout2, item.getType() != null)
+                .setVisible(R.id.layout1,item.getType() == null)
                 .setImageResource(R.id.iv_get1,Integer.parseInt(item.getStatus())==0?R.mipmap.iv_get_all:R.mipmap.iv_got_all)
                 .setImageResource(R.id.iv_get,Integer.parseInt(item.getStatus())==0?R.mipmap.iv_get:R.mipmap.iv_got)
                 .addOnClickListener(R.id.layout)

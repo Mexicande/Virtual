@@ -65,7 +65,7 @@ public class WalletFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wallet, container, false);
         ButterKnife.bind(this, view);
         initView();
-        refreshLayout.autoRefresh();
+        initDate(1);
         setListener();
         return view;
     }

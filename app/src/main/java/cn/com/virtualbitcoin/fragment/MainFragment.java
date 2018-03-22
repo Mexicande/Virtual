@@ -101,11 +101,16 @@ public class MainFragment extends Fragment {
         bannerFrescoDemoContent.setDelegate(new BGABanner.Delegate<ImageView, Banner.BannerBean>() {
             @Override
             public void onBannerItemClick(BGABanner banner, ImageView itemView, Banner.BannerBean model, int position) {
+                if("1".equals(model.getType())){
+                    Intent intent=new Intent(getActivity(),WebViewActivity.class);
+                    intent.putExtra("title",model.getName());
+                    intent.putExtra("url",model.getLink());
+                    startActivity(intent);
+                }else if("2".equals(model.getType())){
+                    AddWechatFragment adialogFragment= AddWechatFragment.newInstance(1,model.getName(),"官网QQ群:2038718090\n官网微信群:TangGuoDaBaoBao");
+                    adialogFragment.show(getFragmentManager(),"adialogFragment");
+                }
 
-                Intent intent=new Intent(getActivity(),WebViewActivity.class);
-                intent.putExtra("title",model.getName());
-                intent.putExtra("url",model.getLink());
-                startActivity(intent);
             }
         });
         Api.getReQuest(Api.GET_BANNER, getActivity(), new JSONObject(), new OnRequestDataListener() {

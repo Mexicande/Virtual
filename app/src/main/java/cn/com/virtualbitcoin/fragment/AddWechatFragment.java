@@ -41,14 +41,16 @@ public class AddWechatFragment extends DialogFragment {
     private String mTitle;
     private String tv_str;
 
+    private int type=0;
     public AddWechatFragment() {
         // Required empty public constructor
     }
 
-    public static AddWechatFragment newInstance(String title, String str) {
+    public static AddWechatFragment newInstance(int type,String title, String str) {
         AddWechatFragment instance = new AddWechatFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
+        args.putInt("type", type);
         args.putString("str", str);
         instance.setArguments(args);
         return instance;
@@ -86,13 +88,17 @@ public class AddWechatFragment extends DialogFragment {
     private void initDialog() {
         mTitle = getArguments().getString("title");
         tv_str = getArguments().getString("str");
+        type = getArguments().getInt("type");
+        if(type==1){
+            cancel.setText("复制QQ号");
+        }
         if (mTitle != null) {
             title.setText(mTitle);
         }
         if (tv_str != null) {
             str.setText(tv_str);
         }
-        if("加QQ群".equals(mTitle)){
+        if(type==2){
             copy.setText("立即加群");
         }
     }
@@ -111,6 +117,7 @@ public class AddWechatFragment extends DialogFragment {
             startActivity(intent);
             return true;
         } catch (Exception e) {
+            ToastUtils.showShort("请安装最新版QQ");
             // 未安装手Q或安装的版本不支持
             return false;
         }
@@ -121,22 +128,28 @@ public class AddWechatFragment extends DialogFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cancel:
+                if(type==1){
+                    cancel.setText("复制QQ号");
+                    ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                    if (cmb != null) {
+                        cmb.setText("2038718090");
+                    }
+                    ToastUtils.showShort("复制成功");
+                }
                 dismiss();
                 break;
             case R.id.copy:
-
-                if("加QQ群".equals(mTitle)){
+                if(type==2){
                     joinQQGroup("ln83JO-AUn64PcssZPDA7V4xK2VSTRZJ");
-                    dismiss();
-
                 }else {
                     ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                     if (cmb != null) {
                         cmb.setText("TangGuoDaBaoBao");
                     }
                     ToastUtils.showShort("复制成功");
-                    dismiss();
                 }
+                dismiss();
+
                 break;
             default:
                 break;

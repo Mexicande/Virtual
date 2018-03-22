@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import cn.com.virtualbitcoin.R;
+import cn.com.virtualbitcoin.activity.child.RateChildActivity;
 import cn.com.virtualbitcoin.activity.login.LoginActivity;
 import cn.com.virtualbitcoin.adapter.CollectionAdapter;
 import cn.com.virtualbitcoin.base.BaseActivity;
@@ -77,6 +79,15 @@ public class CollectionActivity extends BaseActivity {
                 initDate();
             }
         });
+        mCollectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent=new Intent(CollectionActivity.this,RateChildActivity.class);
+                intent.putExtra("Grade",mCollectionAdapter.getItem(position));
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initDate() {
@@ -116,17 +127,6 @@ public class CollectionActivity extends BaseActivity {
         });
 
     }
-
- /*   @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==Contacts.REQUESTION_CODE){
-            if(resultCode==Contacts.RESULT_CODE){
-                initDate();
-            }
-        }
-
-    }*/
 
     @Override
     protected void setToolbarTitle() {

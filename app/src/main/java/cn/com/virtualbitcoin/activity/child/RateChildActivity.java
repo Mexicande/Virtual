@@ -1,5 +1,7 @@
 package cn.com.virtualbitcoin.activity.child;
 
+import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -13,6 +15,8 @@ import com.bumptech.glide.Glide;
 
 import butterknife.Bind;
 import cn.com.virtualbitcoin.R;
+import cn.com.virtualbitcoin.activity.UserSweetActivity;
+import cn.com.virtualbitcoin.activity.WebViewActivity;
 import cn.com.virtualbitcoin.base.BaseActivity;
 import cn.com.virtualbitcoin.bean.RateBean;
 import cn.com.virtualbitcoin.utils.GlideCircleTransform;
@@ -63,16 +67,16 @@ public class RateChildActivity extends BaseActivity {
         RateBean.GradeBean rateBean = (RateBean.GradeBean) getIntent().getSerializableExtra("Grade");
         if (rateBean != null) {
             tvName.setText(rateBean.getName());
+            tvTitle.setText(rateBean.getName());
             setData(rateBean);
         }
 
     }
 
-    private void setData(RateBean.GradeBean item) {
+    private void setData(final RateBean.GradeBean item) {
 
         Glide.with(this).load(item.getLogo())
                 .error(R.mipmap.logo)
-                .placeholder(R.mipmap.logo)
                 .transform(new GlideCircleTransform(this))
                 .into(ivLogo);
 
@@ -82,7 +86,23 @@ public class RateChildActivity extends BaseActivity {
         setTextColor(getResources().getString(R.string.rate_desc),tvDesc,item.getDescription());
         setTextColor(getResources().getString(R.string.rate_feat),feature,item.getFeatures());
         setTextColor(getResources().getString(R.string.rate_tech),tvTechnical,item.getTechnical());
-        setTextColor(getResources().getString(R.string.rate_Website),tvWebsite,item.getWebsite());
+
+        tvWebsite.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        //下划线
+        tvWebsite.setText(item.getWebsite());
+        tvWebsite.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+
+        tvWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RateChildActivity.this, WebViewActivity.class);
+                intent.putExtra("url", item.getWebsite());
+                intent.putExtra("title", item.getName());
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -111,9 +131,5 @@ public class RateChildActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void setToolbarTitle() {
-        tvTitle.setText(R.string.blockchain_rate);
-    }
 
 }

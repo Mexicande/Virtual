@@ -33,7 +33,7 @@ public class SweetList implements Serializable{
          * created_at : 2018-03-14 11:49:48
          * updated_at : 2018-03-14 11:49:48
          */
-
+        private String type;
         private String id;
         private String name;
         private String link;
@@ -46,6 +46,14 @@ public class SweetList implements Serializable{
         private String put_rule;
         private String created_at;
         private String updated_at;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
 
         public String getId() {
             return id;
