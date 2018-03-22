@@ -27,7 +27,7 @@ android {
         release {
             v1SigningEnabled true
             v2SigningEnabled true
-            storeFile file("/Users/apple/Documents/Project/jks/virtual")
+            storeFile file("D:\\Work\\Company\\L\\virtual.jks")
             keyAlias 'virtual'
             keyPassword '000000'
             storePassword '000000'

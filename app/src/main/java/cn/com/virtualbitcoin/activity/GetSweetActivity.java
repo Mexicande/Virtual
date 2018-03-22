@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import cn.com.virtualbitcoin.R;
@@ -155,15 +157,27 @@ public class GetSweetActivity extends BaseActivity {
                 RelativeLayout viewByPosition = (RelativeLayout) mSweetAdapter.getViewByPosition(mSweetRecycler, position, R.id.layout2);
                 RelativeLayout viewByPosition2 = (RelativeLayout) mSweetAdapter.getViewByPosition(mSweetRecycler, position, R.id.layout1);
                 SweetList.CandyBean item = mSweetAdapter.getItem(position);
+                List<SweetList.CandyBean> data = mSweetAdapter.getData();
 
                 switch (view.getId()) {
                     case R.id.layout1:
                         viewByPosition2.setVisibility(View.GONE);
                         viewByPosition.setVisibility(View.VISIBLE);
+                        item.setType("1");
+                        for(int i=0;i<data.size(); i++){
+                            if("1".equals(data.get(i).getType())&&i!=position){
+                                data.get(i).setType(null);
+                                ((SimpleItemAnimator)mSweetRecycler.getItemAnimator()).setSupportsChangeAnimations(false);
+                                mSweetAdapter.notifyItemChanged(i);
+                            }
+                        }
+
                         break;
                     case R.id.layout:
                         viewByPosition2.setVisibility(View.VISIBLE);
                         viewByPosition.setVisibility(View.GONE);
+                        item.setType(null);
+
                         break;
                     case R.id.tv_sign:
                         if (mToken.isEmpty()) {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -123,43 +125,26 @@ public class SweetsFragment extends Fragment {
                 RelativeLayout viewByPosition = (RelativeLayout) sweetAdapter.getViewByPosition(recycler, position, R.id.layout2);
                 RelativeLayout viewByPosition2 = (RelativeLayout) sweetAdapter.getViewByPosition(recycler, position, R.id.layout1);
                 SweetList.CandyBean item = sweetAdapter.getItem(position);
+                List<SweetList.CandyBean> data = sweetAdapter.getData();
+
                 switch (view.getId()) {
                     case R.id.layout1:
-                      /*  viewByPosition2.setVisibility(View.GONE);
-                        viewByPosition.setVisibility(View.VISIBLE);*/
-                        /*for(int i=1;i<=mArrayList.size();i++){
-                            if(i!=position){
-                                RelativeLayout viewBy = (RelativeLayout) sweetAdapter.getViewByPosition(recycler, i, R.id.layout2);
-                                RelativeLayout viewBy2 = (RelativeLayout) sweetAdapter.getViewByPosition(recycler, i, R.id.layout1);
-                                viewBy2.setVisibility(View.VISIBLE);
-                                viewBy.setVisibility(View.GONE);
-                            }
-                        }*/
+                        viewByPosition2.setVisibility(View.GONE);
+                        viewByPosition.setVisibility(View.VISIBLE);
                         item.setType("1");
-
-                        for(int i=0;i<mArrayList.size();i++){
-                            if(i!=position){
-                                sweetAdapter.getItem(i).setType(null);
-                                //sweetAdapter.notifyItemChanged(i);
-                                sweetAdapter.notifyItemInserted(i);
-
+                        for(int i=0;i<data.size(); i++){
+                            if("1".equals(data.get(i).getType())&&i!=position){
+                                data.get(i).setType(null);
+                                ((SimpleItemAnimator)recycler.getItemAnimator()).setSupportsChangeAnimations(false);
+                                sweetAdapter.notifyItemChanged(i);
                             }
-
-                    }
+                        }
 
                         break;
                     case R.id.layout:
-                     /*   viewByPosition2.setVisibility(View.VISIBLE);
-                        viewByPosition.setVisibility(View.GONE);*/
+                        viewByPosition2.setVisibility(View.VISIBLE);
+                        viewByPosition.setVisibility(View.GONE);
                         item.setType(null);
-                        for(int i=0;i<mArrayList.size();i++){
-                            if(i!=position){
-                                sweetAdapter.getItem(i).setType("1");
-                               // sweetAdapter.notifyItemChanged(i);
-                                sweetAdapter.notifyItemInserted(i);
-                            }
-
-                        }
 
                         break;
                     case R.id.tv_sign:
