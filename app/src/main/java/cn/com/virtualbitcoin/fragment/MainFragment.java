@@ -107,7 +107,7 @@ public class MainFragment extends Fragment {
                     intent.putExtra("url",model.getLink());
                     startActivity(intent);
                 }else if("2".equals(model.getType())){
-                    AddWechatFragment adialogFragment= AddWechatFragment.newInstance(1,model.getName(),"官网QQ群:2038718090\n官网微信群:TangGuoDaBaoBao");
+                    AddWechatFragment adialogFragment= AddWechatFragment.newInstance(1,model.getName(),"官网QQ客服:2038718090\n官网微信群:TangGuoDaBaoBao");
                     adialogFragment.show(getFragmentManager(),"adialogFragment");
                 }
 

@@ -102,13 +102,13 @@ public class UserSweetActivity extends BaseActivity {
                 if (refreshLayout.isRefreshing()) {
                     refreshLayout.finishRefresh();
                 }
-
                 Gson gson = new Gson();
                 SweetList terraceBean = gson.fromJson(data.toString(), SweetList.class);
 
                 if (terraceBean.getCandy() == null) {
                     mUserSweetAdapter.setEmptyView(notDataView);
                 } else {
+                    mList.clear();
                     mList.addAll(terraceBean.getCandy());
                     mUserSweetAdapter.setNewData(mList);
                 }
@@ -128,6 +128,8 @@ public class UserSweetActivity extends BaseActivity {
                     startActivityForResult(intent,Contacts.REQUESTION_CODE);*/
                     ActivityUtils.startActivity(LoginActivity.class);
                     finish();
+                }else {
+                    mUserSweetAdapter.setEmptyView(notDataView);
                 }
             }
         });

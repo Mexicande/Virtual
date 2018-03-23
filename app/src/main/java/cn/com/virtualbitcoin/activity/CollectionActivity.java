@@ -109,6 +109,7 @@ public class CollectionActivity extends BaseActivity {
                 if(rateBean.getGrade()==null){
                     mCollectionAdapter.setEmptyView(notDataView);
                 }else {
+                    mArrays.clear();
                     mArrays.addAll(rateBean.getGrade());
                     mCollectionAdapter.setNewData(rateBean.getGrade());
                 }
@@ -122,13 +123,15 @@ public class CollectionActivity extends BaseActivity {
                     refreshLayout.finishRefresh();
                 }
 
-                mCollectionAdapter.setEmptyView(notDataView);
                 if(code==Contacts.ERROR_CODE){
                     SPUtils.getInstance().clear();
                    /* Intent intent=new Intent(CollectionActivity.this,LoginActivity.class);
                     startActivityForResult(intent,Contacts.REQUESTION_CODE);*/
                     ActivityUtils.startActivity(LoginActivity.class);
                     finish();
+                }else {
+                    mCollectionAdapter.setEmptyView(notDataView);
+
                 }
 
             }
