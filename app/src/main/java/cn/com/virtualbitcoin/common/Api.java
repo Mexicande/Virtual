@@ -21,7 +21,7 @@ import cn.com.virtualbitcoin.intr.OnRequestDataListener;
  */
 
 public class Api {
-    public  static  String HOST="http://test.api.bi.anwenqianbao.com/v1/";
+    public  static  String HOST="http://api.bi.anwenqianbao.com/v1/";
     //banner图
     public  static  String GET_BANNER=HOST+"banner/getBanner";
     //注册
@@ -57,17 +57,13 @@ public class Api {
     public  static  String GET_PRICE=HOST+"coin/getCoin";
     //我的糖果
     public  static  String GET_MYSWEET=HOST+"candy/myCandy";
-    //add收藏
-    public  static  String GET_COLLECTION=HOST+"grade/addGrade";
     //my收藏
     public  static  String GET_MY_COLLECTION=HOST+"grade/myGrade";
     //版本检测
-        public  static  String GET_UPDATE=HOST+"version/version";
+    public  static  String GET_UPDATE=HOST+"version/version";
     //
     public static void getReQuest(String url,final Context context, JSONObject s, final OnRequestDataListener listener) {
         QuestionPost.newExcuteJsonPost(url, context, s,listener);
     }
-
-
 
 }
