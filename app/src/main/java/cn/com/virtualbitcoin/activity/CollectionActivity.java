@@ -100,6 +100,10 @@ public class CollectionActivity extends BaseActivity {
         Api.getReQuest(Api.GET_MY_COLLECTION, this, object, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
+                if (refreshLayout.isRefreshing()) {
+                    refreshLayout.finishRefresh();
+                }
+
                 Gson gson = new Gson();
                 RateBean rateBean = gson.fromJson(data.toString(), RateBean.class);
                 if(rateBean.getGrade()==null){
@@ -114,6 +118,10 @@ public class CollectionActivity extends BaseActivity {
             @Override
             public void requestFailure(int code, String msg) {
                 ToastUtils.showShort(msg);
+                if (refreshLayout.isRefreshing()) {
+                    refreshLayout.finishRefresh();
+                }
+
                 mCollectionAdapter.setEmptyView(notDataView);
                 if(code==Contacts.ERROR_CODE){
                     SPUtils.getInstance().clear();

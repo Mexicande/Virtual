@@ -57,7 +57,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initTab() {
-
         NavigationController navigationController = tab.custom()
                 .addItem(newItem(R.mipmap.iv_default_terrace, R.mipmap.iv_seclect_terrace, "平台/钱包"))
                 .addItem(newItem(R.mipmap.iv_default_home, R.mipmap.iv_select_home, "主页"))
@@ -71,7 +70,7 @@ public class MainActivity extends BaseActivity {
         viewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(), list));
         //自动适配ViewPager页面切换
         navigationController.setupWithViewPager(viewPager);
-       viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(1);
 
 
     }

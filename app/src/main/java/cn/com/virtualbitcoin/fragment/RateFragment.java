@@ -219,10 +219,20 @@ public class RateFragment extends Fragment {
 
             @Override
             public void requestFailure(int code, String msg) {
+                if (refreshLayout.isRefreshing()) {
+                    refreshLayout.finishRefresh();
+                }
+                if (refreshLayout.isLoading()) {
+                    refreshLayout.finishLoadmore();
+                }
                 if(code==Contacts.ERROR_CODE){
+                    initDate(1,Api.GET_SWEETLSIT);
+
+
+/*
                     SPUtils.getInstance().clear();
                     Intent intent=new Intent(getActivity(),LoginActivity.class);
-                    startActivityForResult(intent,Contacts.REQUESTION_CODE);
+                    startActivityForResult(intent,Contacts.REQUESTION_CODE);*/
                 }
             }
         });

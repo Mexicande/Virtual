@@ -40,7 +40,7 @@ public class QuestionPost {
 
                                     listener.requestSuccess(0, data);
                                 }else {
-                                    listener.requestFailure(-1, jsonObject.getString("error_message"));
+                                    listener.requestFailure(error_code, jsonObject.getString("error_message"));
                                 }
 
                             } catch (JSONException ignored) {

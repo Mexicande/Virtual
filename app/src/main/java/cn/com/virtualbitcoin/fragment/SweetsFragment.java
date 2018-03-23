@@ -251,11 +251,21 @@ public class SweetsFragment extends Fragment {
             @Override
             public void requestFailure(int code, String msg) {
                 ToastUtils.showShort(msg);
+                if (refreshLayout.isRefreshing()) {
+                    refreshLayout.finishRefresh();
+                }
+                if (refreshLayout.isLoading()) {
+                    refreshLayout.finishLoadmore();
+                }
                 if(code==Contacts.ERROR_CODE){
-                    SPUtils.getInstance().clear();
+
+                    getDate(1,Api.GET_SWEETLSIT);
+
+
+                   /* SPUtils.getInstance().clear();
                     Intent intent=new Intent(getActivity(),LoginActivity.class);
                     startActivityForResult(intent,Contacts.REQUESTION_CODE);
-                    /*ActivityUtils.startActivity(LoginActivity.class);
+                    *//*ActivityUtils.startActivity(LoginActivity.class);
                     finish();*/
                 }
             }

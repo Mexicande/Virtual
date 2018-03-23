@@ -112,10 +112,19 @@ public class GetSweetActivity extends BaseActivity {
             @Override
             public void requestFailure(int code, String msg) {
                 ToastUtils.showShort(msg);
+                if (refreshLayout.isRefreshing()) {
+                    refreshLayout.finishRefresh();
+                }
+                if (refreshLayout.isLoading()) {
+                    refreshLayout.finishLoadmore();
+                }
                 if(code==Contacts.ERROR_CODE){
-                    SPUtils.getInstance().clear();
+
+                    getDate(1,Api.GET_SWEETLSIT);
+
+                  /*  SPUtils.getInstance().clear();
                     ActivityUtils.startActivity(LoginActivity.class);
-                    finish();
+                    finish();*/
                 }
             }
         });

@@ -99,6 +99,10 @@ public class UserSweetActivity extends BaseActivity {
         Api.getReQuest(Api.GET_MYSWEET, this, jsonObject, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
+                if (refreshLayout.isRefreshing()) {
+                    refreshLayout.finishRefresh();
+                }
+
                 Gson gson = new Gson();
                 SweetList terraceBean = gson.fromJson(data.toString(), SweetList.class);
 
@@ -113,6 +117,11 @@ public class UserSweetActivity extends BaseActivity {
             @Override
             public void requestFailure(int code, String msg) {
                 toast(msg);
+
+                if (refreshLayout.isRefreshing()) {
+                    refreshLayout.finishRefresh();
+                }
+
                 if(code==Contacts.ERROR_CODE){
                     SPUtils.getInstance().clear();
                    /* Intent intent=new Intent(CollectionActivity.this,LoginActivity.class);
